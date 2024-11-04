@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
-type Aircraft = {
+type Aircrafts = {
   id: number;
   model: string;
   manufacturer: string;
@@ -13,8 +14,8 @@ type Aircraft = {
 };
 
 const AircraftsPage: React.FC = () => {
-  const [aircrafts, setAircrafts] = useState<Aircraft[]>([]);
-  const [newAircraft, setNewAircraft] = useState<Aircraft>({
+  const [aircrafts, setAircrafts] = useState<Aircrafts[]>([]);
+  const [newAircrafts, setNewAircrafts] = useState<Aircrafts>({
     id: 0,
     model: '',
     manufacturer: '',
@@ -25,7 +26,6 @@ const AircraftsPage: React.FC = () => {
     cid: 0,
   });
   const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
 
   useEffect(() => {
     fetchAircrafts();
@@ -41,34 +41,26 @@ const AircraftsPage: React.FC = () => {
     }
   };
 
-  const handleAddAircraft = async () => {
-    // Basic validation
-    if (!newAircraft.model || !newAircraft.manufacturer || !newAircraft.manu_date || !newAircraft.registration_no) {
-      setError("All fields are required.");
-      return;
-    }
-
+  const handleAddAircrafts = async () => {
     try {
       const response = await fetch('http://localhost:8000/aircrafts', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newAircraft),
+        body: JSON.stringify(newAircrafts),
       });
 
       if (response.ok) {
-        fetchAircrafts(); // Refresh list after adding
-        setNewAircraft({
-          id: 0,
-          model: '',
-          manufacturer: '',
+        fetchAircrafts(); // Refresh the list after adding
+        setNewAircrafts({ 
+          id: 0, 
+          model: '', 
+          manufacturer: '', 
           manu_date: '',
           capacity: 0,
           range: 0,
           registration_no: '',
           cid: 0,
         });
-        setSuccess('Aircraft added successfully!');
-        setError(null);
       } else {
         setError('Failed to add aircraft.');
       }
@@ -77,12 +69,11 @@ const AircraftsPage: React.FC = () => {
     }
   };
 
-  const handleRemoveAircraft = async (id: number) => {
+  const handleRemoveAircrafts = async (id: number) => {
     try {
       const response = await fetch(`http://localhost:8000/aircrafts/${id}`, { method: 'DELETE' });
       if (response.ok) {
-        setAircrafts(aircrafts.filter(member => member.id !== id));
-        setSuccess('Aircraft removed successfully!');
+        setAircrafts(aircrafts.filter(aircraft => aircraft.id !== id));
       } else {
         setError('Failed to remove aircraft.');
       }
@@ -92,28 +83,27 @@ const AircraftsPage: React.FC = () => {
   };
 
   return (
-    <div className="container mt-4">
-      <h1>Aircrafts Management</h1>
-      {error && <p className="text-danger">{error}</p>}
-      {success && <p className="text-success">{success}</p>}
-
-      <table className="table table-bordered mt-3">
-        <thead className="table-dark">
+    <div className="table-container">
+      <h1>Aircrafts</h1>
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+      
+      <table className='table table-bordered'>
+        <thead className='table-dark'>
           <tr>
-            <th>Model</th>
-            <th>Manufacturer</th>
-            <th>Manufacturing Date</th>
-            <th>Capacity</th>
-            <th>Range</th>
-            <th>Reg No.</th>
-            <th>Logs</th>
-            <th>Actions</th>
+            <th scope='col'>Model</th>
+            <th scope='col'>Manufacturer</th>
+            <th scope='col'>Manufacturing Date</th>
+            <th scope='col'>Capacity</th>
+            <th scope='col'>Range (km)</th>
+            <th scope='col'>Reg No.</th>
+            <th scope='col'>Logs</th>
+            <th scope='col'></th>
           </tr>
         </thead>
         <tbody>
           {aircrafts.map(aircraft => (
             <tr key={aircraft.id}>
-              <td>{aircraft.model}</td>
+              <td scope='row'>{aircraft.model}</td>
               <td>{aircraft.manufacturer}</td>
               <td>{aircraft.manu_date}</td>
               <td>{aircraft.capacity}</td>
@@ -123,19 +113,60 @@ const AircraftsPage: React.FC = () => {
                 <Link to={`/aircrafts/${aircraft.id}/maintenance`}>Maintenance Logs</Link>
               </td>
               <td>
-                <button className="btn btn-danger btn-sm" onClick={() => handleRemoveAircraft(aircraft.id)}>Remove</button>
+                <i className="bi bi-trash text-danger" onClick={() => handleRemoveAircrafts(aircraft.id)} style={{ cursor: 'pointer' }}></i>
               </td>
             </tr>
           ))}
           <tr>
-            <td><input type="text" className="form-control" value={newAircraft.model} placeholder="Model" onChange={(e) => setNewAircraft({ ...newAircraft, model: e.target.value })} /></td>
-            <td><input type="text" className="form-control" value={newAircraft.manufacturer} placeholder="Manufacturer" onChange={(e) => setNewAircraft({ ...newAircraft, manufacturer: e.target.value })} /></td>
-            <td><input type="date" className="form-control" value={newAircraft.manu_date} placeholder="Manufacturing Date" onChange={(e) => setNewAircraft({ ...newAircraft, manu_date: e.target.value })} /></td>
-            <td><input type="number" className="form-control" value={newAircraft.capacity} placeholder="Capacity" onChange={(e) => setNewAircraft({ ...newAircraft, capacity: parseInt(e.target.value) || 0 })} /></td>
-            <td><input type="number" className="form-control" value={newAircraft.range} placeholder="Range" onChange={(e) => setNewAircraft({ ...newAircraft, range: parseInt(e.target.value) || 0 })} /></td>
-            <td><input type="text" className="form-control" value={newAircraft.registration_no} placeholder="Registration No." onChange={(e) => setNewAircraft({ ...newAircraft, registration_no: e.target.value })} /></td>
+            <td>
+              <input
+                type="text"
+                value={newAircrafts.model}
+                placeholder='e.g., A652'
+                onChange={(e) => setNewAircrafts({ ...newAircrafts, model: e.target.value })}
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                value={newAircrafts.manufacturer}
+                placeholder='e.g., Airbus'
+                onChange={(e) => setNewAircrafts({ ...newAircrafts, manufacturer: e.target.value })}
+              />
+            </td>
+            <td>
+              <input
+                type="date"
+                value={newAircrafts.manu_date}
+                onChange={(e) => setNewAircrafts({ ...newAircrafts, manu_date: e.target.value })}
+              />
+            </td>
+            <td>
+              <input
+                type="number"
+                value={newAircrafts.capacity}
+                placeholder='Max passengers'
+                onChange={(e) => setNewAircrafts({ ...newAircrafts, capacity: parseInt(e.target.value) })}
+              />
+            </td>
+            <td>
+              <input
+                type="number"
+                value={newAircrafts.range}
+                placeholder='Max range in km'
+                onChange={(e) => setNewAircrafts({ ...newAircrafts, range: parseInt(e.target.value) })}
+              />
+            </td>
             <td colSpan={2}>
-              <button className="btn btn-success btn-sm" onClick={handleAddAircraft}>Add Aircraft</button>
+              <input
+                type="text"
+                value={newAircrafts.registration_no}
+                placeholder='e.g., N12345'
+                onChange={(e) => setNewAircrafts({ ...newAircrafts, registration_no: e.target.value })}
+              />
+            </td>
+            <td>
+              <i className="bi bi-plus-circle-fill text-success" onClick={handleAddAircrafts} style={{ cursor: 'pointer' }}></i>
             </td>
           </tr>
         </tbody>
