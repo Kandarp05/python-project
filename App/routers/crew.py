@@ -28,7 +28,17 @@ async def create_crew_member(request: Request, db: Session = Depends(get_db)):
     for field in required_fields:
         if field not in data:
             raise HTTPException(status_code=400, detail=f"Missing field: {field}")
-    
+
+    # Check if a crew member with the same name already exists
+    existing_crew_member = db.query(Crew).filter(Crew.name == data["name"]).first()
+    if existing_crew_member:
+        raise HTTPException(status_code=400, detail="A crew member with this name already exists.")
+
+    # Check if the role is valid
+    allowed_roles = {"Pilot", "Co-Pilot", "Engineer", "Cabin Crew", "Flight Attendant"}
+    if data["role"] not in allowed_roles:
+        raise HTTPException(status_code=400, detail="Invalid role. Allowed roles are: Pilot, Co-Pilot, Engineer, Cabin Crew, Flight Attendant.")
+
     # Create a new Crew instance
     new_crew_member = Crew(
         name=data["name"],
@@ -41,6 +51,40 @@ async def create_crew_member(request: Request, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(new_crew_member)
     return new_crew_member
+
+@router.put("/{eid}")
+async def update_crew_member(eid: int, request: Request, db: Session = Depends(get_db)):
+    data = await request.json()
+
+    # Fetch the existing crew member by Eid
+    crew_member = db.query(Crew).filter(Crew.eid == eid).first()
+    if not crew_member:
+        raise HTTPException(status_code=404, detail="Crew member not found")
+
+    # Allowed roles for validation
+    allowed_roles = {"Pilot", "Co-Pilot", "Engineer", "Cabin Crew", "Flight Attendant"}
+
+    # Update only specified fields with validation
+    if "role" in data:
+        if data["role"] not in allowed_roles:
+            raise HTTPException(status_code=400, detail="Invalid role. Allowed roles are: Pilot, Co-Pilot, Engineer, Cabin Crew, Flight Attendant.")
+        crew_member.role = data["role"]
+
+    if "experience" in data:
+        crew_member.experience = data["experience"]
+
+    if "certification" in data:
+        crew_member.certification = data["certification"]
+
+    if "airid" in data:
+        crew_member.airid = data["airid"]
+
+    # Commit changes to the database
+    db.commit()
+    db.refresh(crew_member)
+
+    return crew_member
+
 
 @router.delete("/{eid}")
 def delete_crew_member(eid: int, db: Session = Depends(get_db)):
