@@ -1,0 +1,71 @@
+/* Elegant Navbar Styling */
+.elegant-navbar {
+    background: #2c3e50; /* Deep navy blue */
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    margin: 1rem;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .elegant-navbar .navbar-brand {
+    color: #f8f9fa;
+    font-size: 1.6rem;
+    font-weight: bold;
+    transition: color 0.3s;
+  }
+  
+  .elegant-navbar .navbar-brand:hover {
+    color: #4dc0b5; /* Teal accent for hover */
+    text-decoration: none;
+  }
+  
+  .elegant-navbar .nav-link {
+    color: #d0d3d4; /* Light gray for contrast */
+    font-size: 1.1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    transition: background 0.3s ease, color 0.3s ease;
+    position: relative;
+  }
+  
+  /* Active Tab Styling */
+  .elegant-navbar .nav-link.active {
+    color: #ffffff; /* Change to white for better contrast */
+    background: rgba(77, 192, 181, 0.15); /* Soft teal background for active */
+}
+  
+  /* Hover State Styling */
+  .elegant-navbar .nav-link:hover {
+    color: #f8f9fa;
+    background: rgba(77, 192, 181, 0.2); /* Light teal on hover */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Underline effect for hover and active states */
+  .elegant-navbar .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #4dc0b5; /* Teal underline for hover and active */
+    transition: width 0.3s ease;
+  }
+  
+  .elegant-navbar .nav-link:hover::after,
+  .elegant-navbar .nav-link.active::after {
+    width: 100%; /* Expands underline on hover and active */
+  }
+  
+  .elegant-navbar .navbar-nav .nav-item {
+    margin-right: 0.75rem;
+  }
+  
+  /* Add smooth rounding to corners */
+  .elegant-navbar,
+  .elegant-navbar .navbar-nav,
+  .elegant-navbar .navbar-brand {
+    border-radius: 8px;
+  }
+  

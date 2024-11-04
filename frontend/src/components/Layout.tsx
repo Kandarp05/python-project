@@ -8,6 +8,7 @@ type LayoutProps = {
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <div>
+      <div className="overlay" />
       <Navbar />
       <main style={styles.mainContent}>
         {children}

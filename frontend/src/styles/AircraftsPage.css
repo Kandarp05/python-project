@@ -1,73 +1,78 @@
 .table-container {
-    background-color: #f5f8fa !important;
-    padding: 20px !important;
-    border-radius: 10px !important;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) !important;
-  }
-  
-  .table.table-bordered {
-    background-color: #ffffff !important;
-    border-collapse: separate !important;
-    border-spacing: 0 !important;
-    width: 100% !important;
-    border-radius: 10px !important;
-    overflow: hidden !important;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1) !important;
-  }
-  
-  .table-bordered th,
-  .table-bordered td {
-    border: 1px solid #d1dce5 !important;
-  }
-  
-  .table thead th {
-    background-color: #003366 !important; /* Navy blue */
-    color: #ffffff !important;
-  }
-  
-  .table tbody tr {
-    transition: background-color 0.3s ease !important;
-  }
-  
-  .table tbody tr:hover {
-    background-color: #e9f1f7 !important; /* Light blue-gray hover effect */
-  }
-  
-  .table td, .table th {
-    padding: 15px !important;
-    text-align: center !important;
-    font-size: 16px !important;
-    color: #333333 !important;
-  }
-  
-  .table td input {
-    border: 1px solid #cccccc !important;
-    border-radius: 5px !important;
-    padding: 5px !important;
-    width: 100% !important;
-  }
-  
-  .table td input:focus {
-    border-color: #0066cc !important; /* Subtle blue focus */
-    box-shadow: 0 0 5px rgba(0, 102, 204, 0.3) !important;
-  }
-  
-  i.bi-trash {
-    color: #e63946 !important;
-    font-size: 1.3em !important;
-    transition: color 0.2s !important;
-  }
-  
-  i.bi-trash:hover {
-    color: #cc3333 !important;
-  }
-  
-  i.bi-plus-circle-fill {
-    color: #2a9d8f !important; /* Teal green */
-    font-size: 1.5em !important;
-  }
-  
-  i.bi-plus-circle-fill:hover {
-    color: #21867a !important;
-  }
-  
+    background-color: #f1f5f9; /* Light blue-gray background */
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.table.table-bordered {
+    background-color: #ffffff;
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.12);
+}
+
+.table-bordered th,
+.table-bordered td {
+    border: 1px solid #d1dce5;
+}
+
+.table thead th {
+    background-color: #0056a3; /* Elegant blue for headers */
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.table tbody tr {
+    transition: background-color 0.3s ease;
+}
+
+.table tbody tr:hover {
+    background-color: #e3f2fd; /* Light blue hover effect */
+}
+
+.table td, .table th {
+    padding: 15px;
+    text-align: center;
+    font-size: 1rem;
+    color: #333333;
+}
+
+.table td input {
+    border: 1px solid #c2c9d1;
+    border-radius: 6px;
+    padding: 6px;
+    width: 100%;
+    font-size: 0.9rem;
+}
+
+.table td input:focus {
+    border-color: #007bb5; /* Subtle focus blue */
+    box-shadow: 0 0 6px rgba(0, 123, 181, 0.4);
+}
+
+i.bi-trash {
+    color: #e74c3c; /* Soft red */
+    font-size: 1.4em;
+    transition: color 0.2s, transform 0.2s;
+}
+
+i.bi-trash:hover {
+    color: #c0392b; /* Darker red on hover */
+    transform: scale(1.1);
+}
+
+i.bi-plus-circle-fill {
+    color: #20b2aa; /* Soft teal green */
+    font-size: 1.6em;
+    transition: color 0.2s, transform 0.2s;
+}
+
+i.bi-plus-circle-fill:hover {
+    color: #198b80;
+    transform: scale(1.1);
+}

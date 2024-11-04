@@ -1,0 +1,48 @@
+/* BalanceSheet.css */
+
+.balance-sheet-container {
+    margin: 20px; /* Margin around the main container */
+  }
+  
+  .error-message {
+    color: #dc3545; /* Bootstrap danger color for error messages */
+    margin-bottom: 15px; /* Spacing below error messages */
+  }
+  
+  .table {
+    width: 100%; /* Full width for the table */
+    border-collapse: collapse; /* Remove space between borders */
+  }
+  
+  .table-dark {
+    background-color: #343a40; /* Dark background for the table header */
+    color: white; /* White text for the header */
+  }
+  
+  .table-bordered {
+    border: 1px solid #dee2e6; /* Light border for the table */
+  }
+  
+  .table th,
+  .table td {
+    padding: 12px; /* Padding inside table cells */
+    text-align: left; /* Align text to the left */
+    border-bottom: 1px solid #dee2e6; /* Border between rows */
+  }
+  
+  .table th {
+    font-weight: bold; /* Bold header text */
+  }
+  
+  .text-danger {
+    color: #e63946; /* Soft red for danger icon */
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .table th,
+    .table td {
+      padding: 10px; /* Adjust padding for smaller screens */
+    }
+  }
+  

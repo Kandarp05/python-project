@@ -12,7 +12,7 @@
   display: flex;
   align-items: center;
   padding: 15px;
-  background-color: #003366; /* Dark blue for airline theme */
+  background-color: #0056a3; /* Elegant blue for airline theme */
   color: white;
   border-radius: 8px;
   transition: background-color 0.3s ease;
@@ -22,7 +22,7 @@
 }
 
 .add-schedule-div:hover {
-  background-color: #00509e; /* Lighter blue on hover */
+  background-color: #007bff; /* Lighter blue on hover */
 }
 
 .add-schedule-div i {
@@ -40,7 +40,7 @@
 
 .add-schedule-form h2 {
   margin-bottom: 15px;
-  color: #003366; /* Dark blue for headings */
+  color: #0056a3; /* Elegant blue for headings */
 }
 
 .form-group {
@@ -66,7 +66,7 @@
 }
 
 .btn {
-  background-color: #007bff; /* Bootstrap primary color */
+  background-color: #4dc0b5; /* Teal for buttons */
   color: white;
   border: none;
   border-radius: 5px;
@@ -76,7 +76,7 @@
 }
 
 .btn:hover {
-  background-color: #0056b3; /* Darker blue on hover */
+  background-color: #3ba68c; /* Darker teal on hover */
 }
 
 .table {
@@ -105,7 +105,7 @@
 }
 
 .text-danger {
-  color: #dc3545; /* Bootstrap danger color for delete icon */
+  color: #e63946; /* Soft red for danger text */
 }
 
 /* Responsive Design */

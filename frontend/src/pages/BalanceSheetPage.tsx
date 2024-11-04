@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import '../styles/BalanceSheet.css'
 
 type balanceSheet = {
   id: number;
