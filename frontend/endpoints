@@ -1,0 +1,24 @@
+POST /login
+
+GET /aircrafts
+POST /aircrafts
+DELETE /aircrafts/{aircraft_id}
+GET /aircrafts/{aircraft_id}
+
+GET /crew
+POST /crew
+DELETE /crew/{crew_id}
+
+GET /balance-sheet
+PUT /balance-sheet
+
+GET /schedule
+DELETE /schedule/{schedule_id}
+
+get turnaround-maintenance
+post turnaround-maintenance
+delete turnaround-maintenance
+
+get functional-maintenance
+post functional-maintenance
+delete functional-maintenance
