@@ -4,9 +4,9 @@ import '../styles/SchedulePage.css'; // Ensure to import the custom CSS file
 type FlightSchedule = {
   sid: number;
   flight_no: string;
-  arr_time: string; // This will be formatted to "MM/DD/YY , HH:MM"
+  arr_time: string; // This will be formatted to "MM/DD/YY, HH:MM"
   arr_airport: string;
-  dept_time: string; // This will be formatted to "MM/DD/YY , HH:MM"
+  dept_time: string; // This will be formatted to "MM/DD/YY, HH:MM"
   dept_airport: string;
 };
 
@@ -57,7 +57,7 @@ const SchedulePage: React.FC = () => {
     const year = String(dateObj.getFullYear()).slice(-2); // Get last 2 digits of year
     const hours = String(dateObj.getHours()).padStart(2, '0');
     const minutes = String(dateObj.getMinutes()).padStart(2, '0');
-    return `${month}/${day}/${year} , ${hours}:${minutes}`;
+    return `${day}/${month}/${year}, ${hours}:${minutes}`; // Removed space before the comma
   };
 
   const handleAddSchedule = async () => {
@@ -197,12 +197,12 @@ const SchedulePage: React.FC = () => {
           {schedules.map(member => (
             <tr key={member.sid}>
               <td scope='row'>{member.flight_no}</td>
-              <td>{member.arr_time}</td>
+              <td>{formatDateTime(member.arr_time.split('T')[0], member.arr_time.split('T')[1])}</td>
               <td>{member.arr_airport}</td>
-              <td>{member.dept_time}</td>
+              <td>{formatDateTime(member.dept_time.split('T')[0], member.dept_time.split('T')[1])}</td>
               <td>{member.dept_airport}</td>
               <td>
-                <i className="bi bi-trash text-danger" onClick={() => handleRemoveSchedule(member.sid)} style={{ cursor: 'pointer' }}></i>
+                <button className='btn btn-danger' onClick={() => handleRemoveSchedule(member.sid)}>Remove</button>
               </td>
             </tr>
           ))}
