@@ -4,18 +4,18 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import { useParams } from 'react-router-dom';
 
 type FucntionalMaintenanceLog = {
-    id: number;
+    fmid: number;
     date: string;
     type: string;
-    technicianName: string;
-    repairsMade: string;
+    technician: string;
+    repairs_made: string;
 };
   
 type TurnaroundMaintenanceLog = {
-    id: number;
+    tmid: number;
     date: string;
-    technicianName: string;
-    repairsMade: string;
+    technician: string;
+    repairs_made: string;
 }
 
 const MaintenancePage: React.FC = () => {
@@ -23,18 +23,18 @@ const MaintenancePage: React.FC = () => {
   const [turnaroundLogs, setTurnaroundLogs] = useState<TurnaroundMaintenanceLog[]>([]);
   const [functionalLogs, setFunctionalLogs] = useState<FucntionalMaintenanceLog[]>([]);
   const [newTurnaroundMaintenanceLog, setNewTurnaroundMaintenanceLog] = useState<TurnaroundMaintenanceLog>({
-    id: 0,
+    tmid: 0,
     date: '',
-    technicianName: '',
-    repairsMade: ''
+    technician: '',
+    repairs_made: ''
   });
 
   const [newFunctionalMaintenanceLog, setNewFunctionalMaintenanceLog] = useState<FucntionalMaintenanceLog>({
-    id: 0,
+    fmid: 0,
     date: '',
     type: '',
-    technicianName: '',
-    repairsMade: '',
+    technician: '',
+    repairs_made: '',
   });
 
   const [error, setError] = useState<string | null>(null);
@@ -67,9 +67,9 @@ const MaintenancePage: React.FC = () => {
       if (response.ok) {
         fetchLogs(); // Refresh the list after adding
         setNewTurnaroundMaintenanceLog({ 
-            id: 0, 
-            technicianName: '', 
-            repairsMade: '',  
+            tmid: 0, 
+            technician: '', 
+            repairs_made: '',  
             date: ''
         });
       } else {
@@ -85,7 +85,7 @@ const MaintenancePage: React.FC = () => {
     try {
       const response = await fetch(`http://localhost:8000/${air_id}/turnaround-maintenance/${id}`, { method: 'DELETE' });
       if (response.ok) {
-        setTurnaroundLogs(turnaroundLogs.filter(member => member.id !== id));
+        setTurnaroundLogs(turnaroundLogs.filter(member => member.tmid !== id));
       } else {
         setError('Failed to remove turnaround.');
       }
@@ -105,10 +105,10 @@ const MaintenancePage: React.FC = () => {
       if (response.ok) {
         fetchLogs(); // Refresh the list after adding
         setNewFunctionalMaintenanceLog({ 
-            id: 0,
+            fmid: 0,
             type: '',
-            technicianName: '', 
-            repairsMade: '',  
+            technician: '', 
+            repairs_made: '',  
             date: ''
         });
       } else {
@@ -124,7 +124,7 @@ const MaintenancePage: React.FC = () => {
     try {
       const response = await fetch(`http://localhost:8000/${air_id}/functional-maintenance/${id}`, { method: 'DELETE' });
       if (response.ok) {
-        setFunctionalLogs(functionalLogs.filter(member => member.id !== id));
+        setFunctionalLogs(functionalLogs.filter(member => member.fmid !== id));
       } else {
         setError('Failed to remove functional.');
       }
@@ -149,12 +149,12 @@ const MaintenancePage: React.FC = () => {
         </thead>
         <tbody>
           {turnaroundLogs.map(member => (
-            <tr key={member.id}>
+            <tr key={member.tmid}>
               <td scope='row'>{member.date}</td>
-              <td>{member.technicianName}</td>
-              <td>{member.repairsMade}</td>
+              <td>{member.technician}</td>
+              <td>{member.repairs_made}</td>
               <td>
-                <i className="bi bi-trash text-danger" onClick={() => handleRemoveTurnaroundLogs(member.id)} style={{ cursor: 'pointer' }}></i>
+                <i className="bi bi-trash text-danger" onClick={() => handleRemoveTurnaroundLogs(member.tmid)} style={{ cursor: 'pointer' }}></i>
               </td>
             </tr>
           ))}
@@ -169,15 +169,15 @@ const MaintenancePage: React.FC = () => {
             <td>
               <input
                 type="text"
-                value={newTurnaroundMaintenanceLog.technicianName}
-                onChange={(e) => setNewTurnaroundMaintenanceLog({ ...newTurnaroundMaintenanceLog, technicianName: (e.target.value) })}
+                value={newTurnaroundMaintenanceLog.technician}
+                onChange={(e) => setNewTurnaroundMaintenanceLog({ ...newTurnaroundMaintenanceLog, technician: (e.target.value) })}
               />
             </td>
             <td>
               <input
                 type="text"
-                value={newTurnaroundMaintenanceLog.repairsMade}
-                onChange={(e) => setNewTurnaroundMaintenanceLog({ ...newTurnaroundMaintenanceLog, repairsMade: e.target.value })}
+                value={newTurnaroundMaintenanceLog.repairs_made}
+                onChange={(e) => setNewTurnaroundMaintenanceLog({ ...newTurnaroundMaintenanceLog, repairs_made: e.target.value })}
               />
             </td>
             <td>
@@ -202,13 +202,13 @@ const MaintenancePage: React.FC = () => {
         </thead>
         <tbody>
           {functionalLogs.map(member => (
-            <tr key={member.id}>
+            <tr key={member.fmid}>
               <td scope='row'>{member.date}</td>
               <td>{member.type}</td>
-              <td>{member.technicianName}</td>
-              <td>{member.repairsMade}</td>
+              <td>{member.technician}</td>
+              <td>{member.repairs_made}</td>
               <td>
-                <i className="bi bi-trash text-danger" onClick={() => handleRemoveFucntionalLogs(member.id)} style={{ cursor: 'pointer' }}></i>
+                <i className="bi bi-trash text-danger" onClick={() => handleRemoveFucntionalLogs(member.fmid)} style={{ cursor: 'pointer' }}></i>
               </td>
             </tr>
           ))}
@@ -230,15 +230,15 @@ const MaintenancePage: React.FC = () => {
             <td>
               <input
                 type="text"
-                value={newFunctionalMaintenanceLog.technicianName}
-                onChange={(e) => setNewFunctionalMaintenanceLog({ ...newFunctionalMaintenanceLog, technicianName: (e.target.value) })}
+                value={newFunctionalMaintenanceLog.technician}
+                onChange={(e) => setNewFunctionalMaintenanceLog({ ...newFunctionalMaintenanceLog, technician: (e.target.value) })}
               />
             </td>
             <td>
               <input
                 type="text"
-                value={newFunctionalMaintenanceLog.repairsMade}
-                onChange={(e) => setNewFunctionalMaintenanceLog({ ...newFunctionalMaintenanceLog, repairsMade: e.target.value })}
+                value={newFunctionalMaintenanceLog.repairs_made}
+                onChange={(e) => setNewFunctionalMaintenanceLog({ ...newFunctionalMaintenanceLog, repairs_made: e.target.value })}
               />
             </td>
             <td>

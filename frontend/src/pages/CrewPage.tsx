@@ -3,23 +3,22 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
 type CrewMember = {
-  id: number;
+  eid: number;
   name: string;
   role: string;
-  experience: string;
+  experience: number;
   certification: string;
   airid: number;
 };
 
 const CrewPage: React.FC = () => {
   const [crewMembers, setCrewMembers] = useState<CrewMember[]>([]);
-  const [newCrewMember, setNewCrewMember] = useState<CrewMember>({
-    id: 0,
+  const [newCrewMember, setNewCrewMember] = useState<Omit<CrewMember, 'eid'>>({
     name: '',
     role: '',
-    experience: '',
+    experience: 0,
     certification: '',
-    airid: 0,
+    airid: 1,
   });
   const [error, setError] = useState<string | null>(null);
 
@@ -48,10 +47,9 @@ const CrewPage: React.FC = () => {
       if (response.ok) {
         fetchCrewMembers();
         setNewCrewMember({
-          id: 0,
           name: '',
           role: '',
-          experience: '',
+          experience: 0,
           certification: '',
           airid: 0,
         });
@@ -67,7 +65,7 @@ const CrewPage: React.FC = () => {
     try {
       const response = await fetch(`http://localhost:8000/crew/${id}`, { method: 'DELETE' });
       if (response.ok) {
-        setCrewMembers(crewMembers.filter(member => member.id !== id));
+        setCrewMembers(crewMembers.filter(member => member.eid !== id));
       } else {
         setError('Failed to remove crew member.');
       }
@@ -85,7 +83,7 @@ const CrewPage: React.FC = () => {
 
       <div className="row">
         {crewMembers.map((member) => (
-          <div className="col-md-6 mb-4" key={member.id}>
+          <div className="col-md-6 mb-4" key={member.eid}>
             <div className="card shadow-sm" style={{ borderRadius: '10px', overflow: 'hidden', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
               <div className="card-header text-white" style={{ backgroundColor: '#0056a3', fontSize: '1.25rem', fontWeight: 'bold' }}>
                 <h5 className="mb-0">{member.name}</h5>
@@ -103,7 +101,7 @@ const CrewPage: React.FC = () => {
               <div className="card-footer d-flex justify-content-end" style={{ background: '#f1f5f9', padding: '10px' }}>
                 <i
                   className="bi bi-trash text-danger"
-                  onClick={() => handleRemoveCrewMember(member.id)}
+                  onClick={() => handleRemoveCrewMember(member.eid)}
                   style={{ cursor: 'pointer', fontSize: '1.25rem', transition: 'transform 0.2s' }}
                   onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.1)')}
                   onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}
@@ -136,11 +134,11 @@ const CrewPage: React.FC = () => {
                 style={{ borderRadius: '5px', border: '1px solid #ccc' }}
               />
               <input
-                type="text"
+                type="value"
                 className="form-control mb-2"
                 placeholder="Experience"
                 value={newCrewMember.experience}
-                onChange={(e) => setNewCrewMember({ ...newCrewMember, experience: e.target.value })}
+                onChange={(e) => setNewCrewMember({ ...newCrewMember, experience: parseInt(e.target.value) })}
                 style={{ borderRadius: '5px', border: '1px solid #ccc' }}
               />
               <input

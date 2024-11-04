@@ -10,7 +10,7 @@ router = APIRouter()
 def read_aircraft(db: Session = Depends(get_db)):
     try:
         aircrafts = get_all(db, Aircraft)
-        return [{"airid": a.airid, "model": a.model, "manufacturer": a.manufacturer, "capacity" : a.capacity , "air_range" : a.air_range} for a in aircrafts]
+        return [{"airid": a.airid, "model": a.model,"manu_date" : a.manu_date, "manufacturer": a.manufacturer,"air_range": a.air_range, "capacity" : a.capacity , "reg_no" : a.reg_no} for a in aircrafts]
     except Exception as e:
         print(f"Error fetching aircraft: {e}")
         raise HTTPException(status_code=500, detail="Internal Server Error")

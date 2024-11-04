@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import '../styles/SchedulePage.css'; // Ensure to import the custom CSS file
 
 type FlightSchedule = {
-  id: number;
+  sid: number;
   flight_no: number;
-  arrivalTime: string;
-  arrivalAirport: string;
-  departureTime: string;
-  departureAirport: string;
+  arr_time: string;
+  arr_airport: string;
+  dept_time: string;
+  dept_airport: string;
 };
 
 const SchedulePage: React.FC = () => {
@@ -15,12 +15,12 @@ const SchedulePage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [isFormOpen, setIsFormOpen] = useState<boolean>(false);
   const [newSchedule, setNewSchedule] = useState<FlightSchedule>({
-    id: 0,
+    sid: 0,
     flight_no: 0,
-    arrivalTime: '',
-    arrivalAirport: '',
-    departureTime: '',
-    departureAirport: '',
+    arr_time: '',
+    arr_airport: '',
+    dept_time: '',
+    dept_airport: '',
   });
 
   useEffect(() => {
@@ -41,7 +41,7 @@ const SchedulePage: React.FC = () => {
     try {
       const response = await fetch(`http://localhost:8000/schedule/${id}`, { method: 'DELETE' });
       if (response.ok) {
-        setSchedules(schedules.filter(schedule => schedule.id !== id));
+        setSchedules(schedules.filter(schedule => schedule.sid !== id));
       } else {
         setError('Failed to remove schedule.');
       }
@@ -62,12 +62,12 @@ const SchedulePage: React.FC = () => {
       if (response.ok) {
         fetchSchedules(); // Refresh the schedule list
         setNewSchedule({
-          id: 0,
+          sid: 0,
           flight_no: 0,
-          arrivalTime: '',
-          arrivalAirport: '',
-          departureTime: '',
-          departureAirport: '',
+          arr_time: '',
+          arr_airport: '',
+          dept_time: '',
+          dept_airport: '',
         }); // Reset the form
         setIsFormOpen(false); // Close the form
       } else {
@@ -106,14 +106,14 @@ const SchedulePage: React.FC = () => {
               <input
                 type="date"
                 className="form-control"
-                value={newSchedule.arrivalTime.split('T')[0]}
-                onChange={(e) => setNewSchedule({ ...newSchedule, arrivalTime: e.target.value + 'T' + newSchedule.arrivalTime.split('T')[1] })}
+                value={newSchedule.arr_time.split('T')[0]}
+                onChange={(e) => setNewSchedule({ ...newSchedule, arr_time: e.target.value + 'T' + newSchedule.arr_time.split('T')[1] })}
               />
               <input
                 type="time"
                 className="form-control"
-                value={newSchedule.arrivalTime.split('T')[1]}
-                onChange={(e) => setNewSchedule({ ...newSchedule, arrivalTime: newSchedule.arrivalTime.split('T')[0] + 'T' + e.target.value })}
+                value={newSchedule.arr_time.split('T')[1]}
+                onChange={(e) => setNewSchedule({ ...newSchedule, arr_time: newSchedule.arr_time.split('T')[0] + 'T' + e.target.value })}
               />
             </div>
             <div className="form-group">
@@ -121,8 +121,8 @@ const SchedulePage: React.FC = () => {
               <input
                 type="text"
                 className="form-control"
-                value={newSchedule.arrivalAirport}
-                onChange={(e) => setNewSchedule({ ...newSchedule, arrivalAirport: e.target.value })}
+                value={newSchedule.arr_airport}
+                onChange={(e) => setNewSchedule({ ...newSchedule, arr_airport: e.target.value })}
                 placeholder="Enter Arrival Airport"
               />
             </div>
@@ -131,14 +131,14 @@ const SchedulePage: React.FC = () => {
               <input
                 type="date"
                 className="form-control"
-                value={newSchedule.departureTime.split('T')[0]}
-                onChange={(e) => setNewSchedule({ ...newSchedule, departureTime: e.target.value + 'T' + newSchedule.departureTime.split('T')[1] })}
+                value={newSchedule.dept_time.split('T')[0]}
+                onChange={(e) => setNewSchedule({ ...newSchedule, dept_time: e.target.value + 'T' + newSchedule.dept_time.split('T')[1] })}
               />
               <input
                 type="time"
                 className="form-control"
-                value={newSchedule.departureTime.split('T')[1]}
-                onChange={(e) => setNewSchedule({ ...newSchedule, departureTime: newSchedule.departureTime.split('T')[0] + 'T' + e.target.value })}
+                value={newSchedule.dept_time.split('T')[1]}
+                onChange={(e) => setNewSchedule({ ...newSchedule, dept_time: newSchedule.dept_time.split('T')[0] + 'T' + e.target.value })}
               />
             </div>
             <div className="form-group">
@@ -146,8 +146,8 @@ const SchedulePage: React.FC = () => {
               <input
                 type="text"
                 className="form-control"
-                value={newSchedule.departureAirport}
-                onChange={(e) => setNewSchedule({ ...newSchedule, departureAirport: e.target.value })}
+                value={newSchedule.dept_airport}
+                onChange={(e) => setNewSchedule({ ...newSchedule, dept_airport: e.target.value })}
                 placeholder="Enter Departure Airport"
               />
             </div>
@@ -169,14 +169,14 @@ const SchedulePage: React.FC = () => {
         </thead>
         <tbody>
           {schedules.map(member => (
-            <tr key={member.id}>
+            <tr key={member.sid}>
               <td scope='row'>{member.flight_no}</td>
-              <td>{member.arrivalTime}</td>
-              <td>{member.arrivalAirport}</td>
-              <td>{member.departureTime}</td>
-              <td>{member.departureAirport}</td>
+              <td>{member.arr_time}</td>
+              <td>{member.arr_airport}</td>
+              <td>{member.dept_time}</td>
+              <td>{member.dept_airport}</td>
               <td>
-                <i className="bi bi-trash text-danger" onClick={() => handleRemoveSchedule(member.id)} style={{ cursor: 'pointer' }}></i>
+                <i className="bi bi-trash text-danger" onClick={() => handleRemoveSchedule(member.sid)} style={{ cursor: 'pointer' }}></i>
               </td>
             </tr>
           ))}

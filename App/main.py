@@ -28,9 +28,9 @@ async def root():
     return {"message": "Welcome to the FastAPI application!"}
 
 # Include routers for different models
-app.include_router(aircraft.router, prefix="/aircraft", tags=["Aircraft"])
-app.include_router(turnaround_maintenance.router, prefix="/turnaround_maintenance", tags=["Turnaround Maintenance"])
+app.include_router(aircraft.router, prefix="/aircrafts", tags=["Aircraft"])
+app.include_router(turnaround_maintenance.router, prefix="/turnaround-maintenance", tags=["Turnaround Maintenance"])
 app.include_router(crew.router,prefix="/crew",tags=["Crew"]) 
-app.include_router(functional_maintenance.router, prefix="/functional_maintenance", tags=["Functional Maintenance"]) 
-app.include_router(schedules.router, prefix="/schedules", tags=["Schedules"])
-app.include_router(airline_company.router, prefix="/airline_company", tags=["Airline Company"])
+app.include_router(functional_maintenance.router, prefix="/functional-maintenance", tags=["Functional Maintenance"]) 
+app.include_router(schedules.router, prefix="/schedule", tags=["Schedules"])
+app.include_router(airline_company.router, prefix="/balance", tags=["Airline Company"])

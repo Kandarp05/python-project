@@ -4,26 +4,26 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import '../styles/AircraftsPage.css'
 
 type Aircrafts = {
-  id: number;
+  airid: number;
   model: string;
   manufacturer: string;
   manu_date: string;
   capacity: number;
-  range: number;
-  registration_no: string;
+  air_range: number;
+  reg_no: string;
   cid: number;
 };
 
 const AircraftsPage: React.FC = () => {
   const [aircrafts, setAircrafts] = useState<Aircrafts[]>([]);
   const [newAircrafts, setNewAircrafts] = useState<Aircrafts>({
-    id: 0,
+    airid: 0,
     model: '',
     manufacturer: '',
     manu_date: '',
     capacity: 0,
-    range: 0,
-    registration_no: '',
+    air_range: 0,
+    reg_no: '',
     cid: 0,
   });
   const [error, setError] = useState<string | null>(null);
@@ -53,13 +53,13 @@ const AircraftsPage: React.FC = () => {
       if (response.ok) {
         fetchAircrafts(); // Refresh the list after adding
         setNewAircrafts({ 
-          id: 0, 
+          airid: 0, 
           model: '', 
           manufacturer: '', 
           manu_date: '',
           capacity: 0,
-          range: 0,
-          registration_no: '',
+          air_range: 0,
+          reg_no: '',
           cid: 0,
         });
       } else {
@@ -74,7 +74,7 @@ const AircraftsPage: React.FC = () => {
     try {
       const response = await fetch(`http://localhost:8000/aircrafts/${id}`, { method: 'DELETE' });
       if (response.ok) {
-        setAircrafts(aircrafts.filter(aircraft => aircraft.id !== id));
+        setAircrafts(aircrafts.filter(aircraft => aircraft.airid !== id));
       } else {
         setError('Failed to remove aircraft.');
       }
@@ -103,18 +103,18 @@ const AircraftsPage: React.FC = () => {
         </thead>
         <tbody>
           {aircrafts.map(aircraft => (
-            <tr key={aircraft.id}>
+            <tr key={aircraft.airid}>
               <td scope='row'>{aircraft.model}</td>
               <td>{aircraft.manufacturer}</td>
               <td>{aircraft.manu_date}</td>
               <td>{aircraft.capacity}</td>
-              <td>{aircraft.range}</td>
-              <td>{aircraft.registration_no}</td>
+              <td>{aircraft.air_range}</td>
+              <td>{aircraft.reg_no}</td>
               <td>
-                <Link to={`/aircrafts/${aircraft.id}/maintenance`}>Maintenance Logs</Link>
+                <Link to={`/aircrafts/${aircraft.airid}/maintenance`}>Maintenance Logs</Link>
               </td>
               <td>
-                <i className="bi bi-trash text-danger" onClick={() => handleRemoveAircrafts(aircraft.id)} style={{ cursor: 'pointer' }}></i>
+                <i className="bi bi-trash text-danger" onClick={() => handleRemoveAircrafts(aircraft.airid)} style={{ cursor: 'pointer' }}></i>
               </td>
             </tr>
           ))}
@@ -153,17 +153,17 @@ const AircraftsPage: React.FC = () => {
             <td>
               <input
                 type="number"
-                value={newAircrafts.range}
+                value={newAircrafts.air_range}
                 placeholder='Max range in km'
-                onChange={(e) => setNewAircrafts({ ...newAircrafts, range: parseInt(e.target.value) })}
+                onChange={(e) => setNewAircrafts({ ...newAircrafts, air_range: parseInt(e.target.value) })}
               />
             </td>
             <td colSpan={2}>
               <input
                 type="text"
-                value={newAircrafts.registration_no}
+                value={newAircrafts.reg_no}
                 placeholder='e.g., N12345'
-                onChange={(e) => setNewAircrafts({ ...newAircrafts, registration_no: e.target.value })}
+                onChange={(e) => setNewAircrafts({ ...newAircrafts, reg_no: e.target.value })}
               />
             </td>
             <td>

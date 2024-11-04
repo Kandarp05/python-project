@@ -4,7 +4,7 @@ type balanceSheet = {
   id: number;
   date: string;
   revenue: number;
-  p_l: number;
+  profit_loss: number;
 };
 
 const balancePage: React.FC = () => {
@@ -59,7 +59,7 @@ const balancePage: React.FC = () => {
             <tr key={member.id}>
               <td scope='row'>{member.date}</td>
               <td>{member.revenue}</td>
-              <td>{member.p_l}</td>
+              <td>{member.profit_loss}</td>
               <td>
                 <i className="bi bi-trash text-danger" onClick={() => handleRemovebalanceSheet(member.id)} style={{ cursor: 'pointer' }}></i>
               </td>
