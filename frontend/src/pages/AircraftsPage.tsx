@@ -5,9 +5,11 @@ type Aircrafts = {
   id: number;
   model: string;
   manufacturer: string;
+  manu_date: string;
   capacity: number;
   range: number,
   registration_no: string;
+  cid: number;
 };
 
 const AircraftsPage: React.FC = () => {
@@ -16,9 +18,11 @@ const AircraftsPage: React.FC = () => {
     id: 0,
     model: '',
     manufacturer: '',
+    manu_date: '',
     capacity: 0,
     range: 0,
-    registration_no: ''
+    registration_no: '',
+    cid: 0,
   });
   const [error, setError] = useState<string | null>(null);
 
@@ -50,9 +54,11 @@ const AircraftsPage: React.FC = () => {
           id: 0, 
           model: '', 
           manufacturer: '', 
+          manu_date: '',
           capacity: 0,
           range: 0,
-          registration_no: '' 
+          registration_no: '',
+          cid : 0,
         });
       } else {
         setError('Failed to add crew member.');
@@ -85,6 +91,7 @@ const AircraftsPage: React.FC = () => {
           <tr>
             <th scope='col'>Model</th>
             <th scope='col'>Manufacturer</th>
+            <th scope='col'>Manufacturing Date</th>
             <th scope='col'>Capacity</th>
             <th scope='col'>Range</th>
             <th scope='col'>Reg No.</th>
@@ -97,6 +104,7 @@ const AircraftsPage: React.FC = () => {
             <tr key={member.id}>
               <td scope='row'>{member.model}</td>
               <td>{member.manufacturer}</td>
+              <td>{member.manu_date}</td>
               <td>{member.capacity}</td>
               <td>{member.range}</td>
               <td>{member.registration_no}</td>
@@ -123,6 +131,14 @@ const AircraftsPage: React.FC = () => {
                 value={newAircrafts.manufacturer}
                 placeholder='Manufacturer'
                 onChange={(e) => setNewAircrafts({ ...newAircrafts, manufacturer: (e.target.value) })}
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                value={newAircrafts.manu_date}
+                placeholder='Manufacturing Date'
+                onChange={(e) => setNewAircrafts({ ...newAircrafts, manu_date: (e.target.value) })}
               />
             </td>
             <td>

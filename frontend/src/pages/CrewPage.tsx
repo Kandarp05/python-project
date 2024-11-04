@@ -1,26 +1,81 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
-const CrewPage = () => {
-  const [crewMembers, setCrewMembers] = useState([
-    { id: 1, name: 'John Doe', role: 'Pilot', experience: '10 years', certification: 'Certified' },
-    { id: 2, name: 'Jane Smith', role: 'Flight Attendant', experience: '5 years', certification: 'Certified' },
-    // Add more dummy data if needed
-  ]);
-  const [newCrewMember, setNewCrewMember] = useState({ name: '', role: '', experience: '', certification: '' });
-  const [error, setError] = useState('');
+type CrewMember = {
+  id: number;
+  name: string;
+  role: string;
+  experience: string;
+  certification: string;
+  airid: number;
+};
 
-  const handleAddCrewMember = () => {
-    if (!newCrewMember.name || !newCrewMember.role) {
-      setError('Please fill in all fields');
-      return;
+const CrewPage: React.FC = () => {
+  const [crewMembers, setCrewMembers] = useState<CrewMember[]>([]);
+  const [newCrewMember, setNewCrewMember] = useState<CrewMember>({
+    id: 0,
+    name: '',
+    role: '',
+    experience: '',
+    certification: '',
+    airid: 0,
+  });
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetchCrewMembers();
+  }, []);
+
+  const fetchCrewMembers = async () => {
+    try {
+      const response = await fetch('http://localhost:8000/crew');
+      const data = await response.json();
+      setCrewMembers(data);
+    } catch (error) {
+      setError('Failed to load crew members.');
     }
-    setCrewMembers([...crewMembers, { ...newCrewMember, id: crewMembers.length + 1 }]);
-    setNewCrewMember({ name: '', role: '', experience: '', certification: '' });
-    setError('');
   };
 
-  const handleRemoveCrewMember = (id : number) => {
-    setCrewMembers(crewMembers.filter((member) => member.id !== id));
+  const handleAddCrewMember = async () => {
+    try {
+      const response = await fetch('http://localhost:8000/crew', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newCrewMember),
+      });
+
+      if (response.ok) {
+        fetchCrewMembers(); // Refresh the list after adding
+        setNewCrewMember({ 
+          id: 0, 
+          name: '', 
+          role: '', 
+          experience: '', 
+          certification: '',
+          airid: 0,
+        });
+      } else {
+        setError('Failed to add crew member.');
+      }
+    } catch (error) {
+      setError('Error adding crew member.');
+    }
+  };
+
+  const handleRemoveCrewMember = async (id: number) => {
+    console.log(id)
+    try {
+      const response = await fetch(`http://localhost:8000/crew/${id}`, { method: 'DELETE' });
+      console.log(response)
+      if (response.ok) {
+        setCrewMembers(crewMembers.filter(member => member.id !== id));
+      } else {
+        setError('Failed to remove crew member.');
+      }
+    } catch (error) {
+      setError('Error removing crew member.');
+    }
   };
 
   return (

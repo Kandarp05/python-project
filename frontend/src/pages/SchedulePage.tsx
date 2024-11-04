@@ -7,6 +7,7 @@ type FlightSchedule = {
   arrivalAirport: string;
   departureTime: string;
   departureAirport: string;
+  airid: number;
 };
 
 const SchedulePage: React.FC = () => {

@@ -8,7 +8,6 @@ type FucntionalMaintenanceLog = {
     date: string;
     type: string;
     technicianName: string;
-    issuesFound: string;
     repairsMade: string;
 };
   
@@ -16,7 +15,6 @@ type TurnaroundMaintenanceLog = {
     id: number;
     date: string;
     technicianName: string;
-    issuesFound: string;
     repairsMade: string;
 }
 
@@ -28,7 +26,6 @@ const MaintenancePage: React.FC = () => {
     id: 0,
     date: '',
     technicianName: '',
-    issuesFound: '',
     repairsMade: ''
   });
 
@@ -37,7 +34,6 @@ const MaintenancePage: React.FC = () => {
     date: '',
     type: '',
     technicianName: '',
-    issuesFound: '',
     repairsMade: '',
   });
 
@@ -73,8 +69,7 @@ const MaintenancePage: React.FC = () => {
         setNewTurnaroundMaintenanceLog({ 
             id: 0, 
             technicianName: '', 
-            repairsMade: '', 
-            issuesFound: '', 
+            repairsMade: '',  
             date: ''
         });
       } else {
@@ -113,8 +108,7 @@ const MaintenancePage: React.FC = () => {
             id: 0,
             type: '',
             technicianName: '', 
-            repairsMade: '', 
-            issuesFound: '', 
+            repairsMade: '',  
             date: ''
         });
       } else {
@@ -149,7 +143,6 @@ const MaintenancePage: React.FC = () => {
           <tr>
             <th scope='col'>Date</th>
             <th scope='col'>Technician</th>
-            <th scope='col'>Issues</th>
             <th scope='col'>Repairs</th>
             <th scope='col'></th>
           </tr>
@@ -159,7 +152,6 @@ const MaintenancePage: React.FC = () => {
             <tr key={member.id}>
               <td scope='row'>{member.date}</td>
               <td>{member.technicianName}</td>
-              <td>{member.issuesFound}</td>
               <td>{member.repairsMade}</td>
               <td>
                 <i className="bi bi-trash text-danger" onClick={() => handleRemoveTurnaroundLogs(member.id)} style={{ cursor: 'pointer' }}></i>
@@ -179,13 +171,6 @@ const MaintenancePage: React.FC = () => {
                 type="text"
                 value={newTurnaroundMaintenanceLog.technicianName}
                 onChange={(e) => setNewTurnaroundMaintenanceLog({ ...newTurnaroundMaintenanceLog, technicianName: (e.target.value) })}
-              />
-            </td>
-            <td>
-              <input
-                type="text"
-                value={newTurnaroundMaintenanceLog.issuesFound}
-                onChange={(e) => setNewTurnaroundMaintenanceLog({ ...newTurnaroundMaintenanceLog, issuesFound: e.target.value })}
               />
             </td>
             <td>
@@ -211,7 +196,6 @@ const MaintenancePage: React.FC = () => {
             <th scope='col'>Date</th>
             <th scope='col'>Type</th>
             <th scope='col'>Technician</th>
-            <th scope='col'>Issues</th>
             <th scope='col'>Repairs</th>
             <th scope='col'></th>
           </tr>
@@ -222,7 +206,6 @@ const MaintenancePage: React.FC = () => {
               <td scope='row'>{member.date}</td>
               <td>{member.type}</td>
               <td>{member.technicianName}</td>
-              <td>{member.issuesFound}</td>
               <td>{member.repairsMade}</td>
               <td>
                 <i className="bi bi-trash text-danger" onClick={() => handleRemoveFucntionalLogs(member.id)} style={{ cursor: 'pointer' }}></i>
@@ -249,13 +232,6 @@ const MaintenancePage: React.FC = () => {
                 type="text"
                 value={newFunctionalMaintenanceLog.technicianName}
                 onChange={(e) => setNewFunctionalMaintenanceLog({ ...newFunctionalMaintenanceLog, technicianName: (e.target.value) })}
-              />
-            </td>
-            <td>
-              <input
-                type="text"
-                value={newFunctionalMaintenanceLog.issuesFound}
-                onChange={(e) => setNewFunctionalMaintenanceLog({ ...newFunctionalMaintenanceLog, issuesFound: e.target.value })}
               />
             </td>
             <td>
