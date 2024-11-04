@@ -1,0 +1,117 @@
+/* SchedulePage.css */
+
+.table-container {
+  margin: 20px;
+}
+
+.add-schedule-container {
+  margin-bottom: 20px;
+}
+
+.add-schedule-div {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  background-color: #003366; /* Dark blue for airline theme */
+  color: white;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  font-size: 1.2em; /* Slightly larger text */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+}
+
+.add-schedule-div:hover {
+  background-color: #00509e; /* Lighter blue on hover */
+}
+
+.add-schedule-div i {
+  margin-left: 10px; /* Space between text and icon */
+}
+
+.add-schedule-form {
+  background-color: #f2f2f2; /* Light grey for form background */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for elevation */
+}
+
+.add-schedule-form h2 {
+  margin-bottom: 15px;
+  color: #003366; /* Dark blue for headings */
+}
+
+.form-group {
+  margin-bottom: 15px; /* Spacing between form groups */
+}
+
+.form-label {
+  font-weight: 600; /* Bold labels for clarity */
+  margin-bottom: 5px; /* Spacing below labels */
+  display: block; /* Ensure labels are on a new line */
+}
+
+.form-control {
+  width: calc(50% - 10px); /* Half width for date/time inputs */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px; /* Space between date and time inputs */
+}
+
+.form-control:last-child {
+  margin-right: 0; /* Remove margin from last child */
+}
+
+.btn {
+  background-color: #007bff; /* Bootstrap primary color */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+.table {
+  width: 100%; /* Full width for the table */
+  border-collapse: collapse; /* Remove space between borders */
+}
+
+.table-dark {
+  background-color: #343a40; /* Dark background for the table header */
+  color: white; /* White text for the header */
+}
+
+.table-bordered {
+  border: 1px solid #dee2e6; /* Light border for the table */
+}
+
+.table th,
+.table td {
+  padding: 12px; /* Padding inside table cells */
+  text-align: left; /* Align text to the left */
+  border-bottom: 1px solid #dee2e6; /* Border between rows */
+}
+
+.table th {
+  font-weight: bold; /* Bold header text */
+}
+
+.text-danger {
+  color: #dc3545; /* Bootstrap danger color for delete icon */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .form-control {
+    width: 100%; /* Full width on smaller screens */
+    margin-right: 0; /* Remove right margin on smaller screens */
+  }
+}
