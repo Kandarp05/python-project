@@ -1,11 +1,14 @@
 // LoginPage.tsx
 import React, { useState } from 'react';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css'
+import { useNavigate } from 'react-router-dom';;
 
 const LoginPage: React.FC = () => {
   const [userID, setUserID] = useState('');
   const [password, setPassword] = useState('');
+
+  const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -18,6 +21,7 @@ const LoginPage: React.FC = () => {
 
     if (response.ok) {
       console.log('Login successful');
+      navigate('/home')
     } else {
       console.log('Login failed');
     }
