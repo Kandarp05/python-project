@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { AuthProvider } from './components/AuthContext';
-import ProtectedRoute from './components/ProtectedRoute';
 import Layout from './components/Layout';
 import HomePage from './pages/HomePage';
 import CrewPage from './pages/CrewPage';
@@ -19,12 +18,12 @@ const App: React.FC = () => {
         <Layout>
           <Routes>
             <Route path="/login" element={<LoginPage />} />
-            <Route path="/home" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
-            <Route path="/crew" element={<ProtectedRoute><CrewPage /></ProtectedRoute>} />
-            <Route path="/schedule" element={<ProtectedRoute><SchedulePage /></ProtectedRoute>} />
-            <Route path="/aircrafts/:air_id/maintenance" element={<ProtectedRoute><MaintenancePage /></ProtectedRoute>} />
-            <Route path="/balance" element={<ProtectedRoute><BalanceSheetPage /></ProtectedRoute>} />
-            <Route path="/aircrafts" element={<ProtectedRoute><AircraftsPage /></ProtectedRoute>} />
+            <Route path="/home" element={<HomePage />} />
+            <Route path="/crew" element={<CrewPage />} />
+            <Route path="/schedule" element={<SchedulePage />} />
+            <Route path="/aircrafts/:air_id/maintenance" element={<MaintenancePage />} />
+            <Route path="/balance" element={<BalanceSheetPage />} />
+            <Route path="/aircrafts" element={<AircraftsPage />} />
             <Route path="*" element={<Navigate to="/login" />} />
           </Routes>
         </Layout>
