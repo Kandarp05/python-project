@@ -115,3 +115,91 @@
     margin-right: 0; /* Remove right margin on smaller screens */
   }
 }
+
+.add-schedule-container {
+  margin: 10px 0; /* Reduce vertical margin */
+  padding: 15px; /* Reduce padding for the container */
+  border-radius: 8px; /* Slightly smaller rounding */
+  /* background-color: #ffffff; Keep background color */
+  /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); Reduce shadow for a flatter look */
+}
+
+.add-schedule-div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  padding: 10px 15px; /* Slightly increased padding for better touch target */
+  border: 1px solid #b0bec5; /* Darker light border */
+  border-radius: 5px; /* Smaller radius */
+  background-color: #4dc0b5; /* Dark slate gray background for strong contrast */
+  color: #ffffff; /* White text for better readability */ /* Added transform for hover effect */
+}
+
+.add-schedule-div:hover {
+  background-color: #26a69a; /* Slightly lighter gray on hover */
+}
+
+.form-title {
+  margin: 0 0 15px; /* Remove top margin for compactness */
+  color: #ffffff; /* White for title */
+}
+
+.form-label {
+  font-weight: bold;
+  margin-bottom: 4px; /* Less margin */
+  display: block; /* Full width */
+  color: #b0bec5; /* Light gray for labels for subtle contrast */
+}
+
+.btn {
+  background-color: #4dc0b5; /* Teal for button */
+  color: #ffffff; /* White text for button */
+}
+
+.btn:hover {
+  background-color: #26a69a; /* Darker teal on button hover */
+}
+
+
+.form-control {
+  padding: 8px; /* Less padding for inputs */
+  border: 1px solid #ced4da; /* Border for inputs */
+  border-radius: 4px; /* Slightly smaller rounding */
+  width: calc(100% - 16px); /* Ensure it fits without horizontal scroll */
+  transition: border-color 0.3s ease; /* Smooth border color transition */
+}
+
+.form-control:focus {
+  border-color: #007bff; /* Highlight color on focus */
+  outline: none; /* Remove default outline */
+}
+
+.time-inputs {
+  display: flex;
+  justify-content: space-between; /* Align date and time inputs */
+}
+
+.date-input, .time-input {
+  flex: 1; /* Equal space for inputs */
+  margin-right: 5px; /* Space between date and time inputs */
+}
+
+.date-input:last-child, .time-input:last-child {
+  margin-right: 0; /* Remove right margin from last input */
+}
+
+.add-schedule-btn {
+  background-color: #4dc0b5; /* Teal background */
+  color: white; /* White text */
+  padding: 8px 12px; /* Less padding */
+  border: none; /* No border */
+  border-radius: 4px; /* Smaller radius */
+  cursor: pointer; /* Pointer cursor */
+  transition: background-color 0.3s ease; /* Transition for button */
+}
+
+.add-schedule-btn:hover {
+  background-color: #39a89c; /* Darker teal on hover */
+}
+

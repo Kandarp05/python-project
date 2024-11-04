@@ -84,77 +84,83 @@ const SchedulePage: React.FC = () => {
       {error && <p style={{ color: 'red' }}>{error}</p>}
 
       <div className="add-schedule-container">
-        <div className="add-schedule-div" onClick={() => setIsFormOpen(!isFormOpen)}>
-          <span>Add Flight Schedule</span>
-          <i className={`bi ${isFormOpen ? 'bi-arrow-up' : 'bi-arrow-down'}`}></i>
-        </div>
-        {isFormOpen && (
-          <div className="add-schedule-form">
-            <h2>New Flight Schedule</h2>
-            <div className="form-group">
-              <label className="form-label">Flight No.</label>
-              <input
-                type="number"
-                className="form-control"
-                value={newSchedule.flight_no}
-                onChange={(e) => setNewSchedule({ ...newSchedule, flight_no: parseInt(e.target.value) })}
-                placeholder="Enter Flight Number"
-              />
-            </div>
-            <div className="form-group">
-              <label className="form-label">Arrival Time</label>
-              <input
-                type="date"
-                className="form-control"
-                value={newSchedule.arr_time.split('T')[0]}
-                onChange={(e) => setNewSchedule({ ...newSchedule, arr_time: e.target.value + 'T' + newSchedule.arr_time.split('T')[1] })}
-              />
-              <input
-                type="time"
-                className="form-control"
-                value={newSchedule.arr_time.split('T')[1]}
-                onChange={(e) => setNewSchedule({ ...newSchedule, arr_time: newSchedule.arr_time.split('T')[0] + 'T' + e.target.value })}
-              />
-            </div>
-            <div className="form-group">
-              <label className="form-label">Arrival Airport</label>
-              <input
-                type="text"
-                className="form-control"
-                value={newSchedule.arr_airport}
-                onChange={(e) => setNewSchedule({ ...newSchedule, arr_airport: e.target.value })}
-                placeholder="Enter Arrival Airport"
-              />
-            </div>
-            <div className="form-group">
-              <label className="form-label">Departure Time</label>
-              <input
-                type="date"
-                className="form-control"
-                value={newSchedule.dept_time.split('T')[0]}
-                onChange={(e) => setNewSchedule({ ...newSchedule, dept_time: e.target.value + 'T' + newSchedule.dept_time.split('T')[1] })}
-              />
-              <input
-                type="time"
-                className="form-control"
-                value={newSchedule.dept_time.split('T')[1]}
-                onChange={(e) => setNewSchedule({ ...newSchedule, dept_time: newSchedule.dept_time.split('T')[0] + 'T' + e.target.value })}
-              />
-            </div>
-            <div className="form-group">
-              <label className="form-label">Departure Airport</label>
-              <input
-                type="text"
-                className="form-control"
-                value={newSchedule.dept_airport}
-                onChange={(e) => setNewSchedule({ ...newSchedule, dept_airport: e.target.value })}
-                placeholder="Enter Departure Airport"
-              />
-            </div>
-            <button className="btn" onClick={handleAddSchedule}>Add Schedule</button>
-          </div>
-        )}
+  <div className="add-schedule-div" onClick={() => setIsFormOpen(!isFormOpen)}>
+    <span>Add Flight Schedule</span>
+    <i className={`bi ${isFormOpen ? 'bi-arrow-up' : 'bi-arrow-down'}`}></i>
+  </div>
+  {isFormOpen && (
+    <div className="add-schedule-form">
+      <h2 className="form-title">New Flight Schedule</h2>
+      <div className="form-group">
+        <label className="form-label">Flight No.</label>
+        <input
+          type="number"
+          className="form-control"
+          value={newSchedule.flight_no}
+          onChange={(e) => setNewSchedule({ ...newSchedule, flight_no: parseInt(e.target.value) })}
+          placeholder="Enter Flight Number"
+        />
       </div>
+      <div className="form-group">
+        <label className="form-label">Arrival Time</label>
+        <div className="time-inputs">
+          <input
+            type="date"
+            className="form-control date-input"
+            value={newSchedule.arr_time.split('T')[0]}
+            onChange={(e) => setNewSchedule({ ...newSchedule, arr_time: e.target.value + 'T' + newSchedule.arr_time.split('T')[1] })}
+          />
+          <input
+            type="time"
+            className="form-control time-input"
+            value={newSchedule.arr_time.split('T')[1]}
+            onChange={(e) => setNewSchedule({ ...newSchedule, arr_time: newSchedule.arr_time.split('T')[0] + 'T' + e.target.value })}
+          />
+        </div>
+      </div>
+      <div className="form-group">
+        <label className="form-label">Arrival Airport</label>
+        <input
+          type="text"
+          className="form-control"
+          value={newSchedule.arr_airport}
+          onChange={(e) => setNewSchedule({ ...newSchedule, arr_airport: e.target.value })}
+          placeholder="Enter Arrival Airport"
+        />
+      </div>
+      <div className="form-group">
+        <label className="form-label">Departure Time</label>
+        <div className="time-inputs">
+          <input
+            type="date"
+            className="form-control date-input"
+            value={newSchedule.dept_time.split('T')[0]}
+            onChange={(e) => setNewSchedule({ ...newSchedule, dept_time: e.target.value + 'T' + newSchedule.dept_time.split('T')[1] })}
+          />
+          <input
+            type="time"
+            className="form-control time-input"
+            value={newSchedule.dept_time.split('T')[1]}
+            onChange={(e) => setNewSchedule({ ...newSchedule, dept_time: newSchedule.dept_time.split('T')[0] + 'T' + e.target.value })}
+          />
+        </div>
+      </div>
+      <div className="form-group">
+        <label className="form-label">Departure Airport</label>
+        <input
+          type="text"
+          className="form-control"
+          value={newSchedule.dept_airport}
+          onChange={(e) => setNewSchedule({ ...newSchedule, dept_airport: e.target.value })}
+          placeholder="Enter Departure Airport"
+        />
+      </div>
+      <button className="btn add-schedule-btn" onClick={handleAddSchedule}>Add Schedule</button>
+    </div>
+  )}
+</div>
+
+
 
       <table className='table table-bordered'>
         <thead className='table-dark'>
