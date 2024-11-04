@@ -1,13 +1,20 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware 
 from .database import engine
 from .models import Base
 from .routers import aircraft, turnaround_maintenance, crew, functional_maintenance, schedules, airline_company
-
 # Create the tables
 Base.metadata.create_all(bind=engine)
 
 # Initialize FastAPI app
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows requests from any origin for testing
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all HTTP methods
+    allow_headers=["*"],  # Allows all headers
+)
 
 @app.get("/")
 async def root():

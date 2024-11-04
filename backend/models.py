@@ -7,13 +7,14 @@ class Aircraft(Base):
     __tablename__ = 'Aircraft'
     
     airid = Column(Integer, primary_key=True, autoincrement=True)
-    model = Column(String(255), nullable=True)
-    manufacturer = Column(String(255), nullable=True)
-    manu_date = Column(Date, nullable=True)
-    capacity = Column(Integer, nullable=True)
-    air_range = Column(Integer, nullable=True)
-    reg_no = Column(String(50), nullable=True)
+    model = Column(String(255), nullable=False)
+    manufacturer = Column(String(255), nullable=False)
+    manu_date = Column(Date, nullable=False)
+    capacity = Column(Integer, nullable=False)
+    air_range = Column(Integer, nullable=False)
+    reg_no = Column(String(50), nullable=False)
     CID= Column(Integer, ForeignKey('Airline_company.cid'), nullable=True)  # Foreign key to Airline_company
+
 
     # Define relationships
     crew_members = relationship("Crew", back_populates="aircraft")
