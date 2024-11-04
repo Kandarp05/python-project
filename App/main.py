@@ -2,7 +2,14 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware 
 from .database import engine
 from .models import Base
-from .routers import aircraft, turnaround_maintenance, crew, functional_maintenance, schedules, airline_company
+from .routers import (
+    aircraft, 
+    turnaround_maintenance, 
+    crew, 
+    functional_maintenance, 
+    schedules, 
+    airline_company
+)
 # Create the tables
 Base.metadata.create_all(bind=engine)
 
