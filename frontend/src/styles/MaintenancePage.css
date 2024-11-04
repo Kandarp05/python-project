@@ -1,0 +1,65 @@
+body {
+    background-color: #f4f4f9; /* Soft background color */
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    color: #3e4551; /* Darker title color for contrast */
+    margin-bottom: 20px;
+    font-size: 2rem;
+}
+
+.table {
+    background-color: #ffffff; /* White background for tables */
+    border-radius: 10px;
+    overflow: hidden; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    margin-bottom: 30px; /* Spacing between sections */
+}
+
+.table-dark {
+    background-color: #343a40; /* Darker header color */
+}
+
+.table-dark th {
+    color: #ffffff; /* White text for table headers */
+}
+
+.table th, .table td {
+    padding: 15px; /* Increased padding for a spacious feel */
+    text-align: left; /* Align text to the left */
+}
+
+.table tbody tr:hover {
+    background-color: #f1f1f1; /* Light gray on hover */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.table tbody input {
+    width: 100%; /* Full width for input fields */
+    padding: 10px; /* Comfortable padding */
+    border: 1px solid #ced4da; /* Light border */
+    border-radius: 5px; /* Rounded corners */
+    transition: border-color 0.3s ease; /* Smooth border color change */
+}
+
+.table tbody input:focus {
+    border-color: #007bff; /* Blue border on focus */
+    outline: none; /* Remove default outline */
+}
+
+.bi {
+    font-size: 1.5rem; /* Icon size */
+    transition: color 0.3s ease; /* Smooth color change */
+}
+
+.bi:hover {
+    color: #ff4d4d; /* Red color on hover for delete icon */
+}
+
+.error-message {
+    color: #dc3545; /* Red color for error messages */
+    margin-bottom: 20px; /* Spacing for readability */
+}

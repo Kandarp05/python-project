@@ -125,14 +125,20 @@ const CrewPage: React.FC = () => {
                 onChange={(e) => setNewCrewMember({ ...newCrewMember, name: e.target.value })}
                 style={{ borderRadius: '5px', border: '1px solid #ccc' }}
               />
-              <input
-                type="text"
+              <select
                 className="form-control mb-2"
-                placeholder="Role"
                 value={newCrewMember.role}
                 onChange={(e) => setNewCrewMember({ ...newCrewMember, role: e.target.value })}
-                style={{ borderRadius: '5px', border: '1px solid #ccc' }}
-              />
+                style={{ borderRadius: '5px', border: '1px solid #ccc', padding: '8px' }}
+              >
+                <option value="">---Select Role---</option>
+                <option value="Pilot">Pilot</option>
+                <option value="Co-Pilot">Co-Pilot</option>
+                <option value="Engineer">Engineer</option>
+                <option value="Cabin Crew">Cabin Crew</option>
+                <option value="Flight Attendant">Flight Attendant</option>
+              </select>
+
               <input
                 type="value"
                 className="form-control mb-2"
