@@ -4,24 +4,23 @@ import '../styles/SchedulePage.css'; // Ensure to import the custom CSS file
 type FlightSchedule = {
   sid: number;
   flight_no: string;
-  arr_time: string;
+  arr_time: string; // This will be formatted to "MM/DD/YY , HH:MM"
   arr_airport: string;
-  dept_time: string;
+  dept_time: string; // This will be formatted to "MM/DD/YY , HH:MM"
   dept_airport: string;
-  airid: number;
 };
 
 const SchedulePage: React.FC = () => {
   const [schedules, setSchedules] = useState<FlightSchedule[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [isFormOpen, setIsFormOpen] = useState<boolean>(false);
-  const [newSchedule, setNewSchedule] = useState<Omit<FlightSchedule, 'sid'>>({
+  const [newSchedule, setNewSchedule] = useState<FlightSchedule>({
+    sid: 0,
     flight_no: '',
     arr_time: '',
     arr_airport: '',
     dept_time: '',
     dept_airport: '',
-    airid: 2,
   });
 
   useEffect(() => {
@@ -51,33 +50,46 @@ const SchedulePage: React.FC = () => {
     }
   };
 
-  const handleAddSchedule = async () => {
-    try {
-      const formattedSchedule = {
-        flight_no: newSchedule.flight_no,
-        dept_time: `${newSchedule.dept_time.split('T')[0]} , ${newSchedule.dept_time.split('T')[1]}`,
-        arr_time: `${newSchedule.arr_time.split('T')[0]} , ${newSchedule.arr_time.split('T')[1]}`,
-        dept_airport: newSchedule.dept_airport,
-        arr_airport: newSchedule.arr_airport,
-        airid: newSchedule.airid,
-      };
+  const formatDateTime = (date: string, time: string) => {
+    const dateObj = new Date(`${date}T${time}`);
+    const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+    const day = String(dateObj.getDate()).padStart(2, '0');
+    const year = String(dateObj.getFullYear()).slice(-2); // Get last 2 digits of year
+    const hours = String(dateObj.getHours()).padStart(2, '0');
+    const minutes = String(dateObj.getMinutes()).padStart(2, '0');
+    return `${month}/${day}/${year} , ${hours}:${minutes}`;
+  };
 
+  const handleAddSchedule = async () => {
+    const formattedDeptTime = formatDateTime(newSchedule.dept_time.split('T')[0], newSchedule.dept_time.split('T')[1]);
+    const formattedArrTime = formatDateTime(newSchedule.arr_time.split('T')[0], newSchedule.arr_time.split('T')[1]);
+
+    const scheduleToAdd = {
+      flight_no: newSchedule.flight_no,
+      dept_time: formattedDeptTime,
+      arr_time: formattedArrTime,
+      dept_airport: newSchedule.dept_airport,
+      arr_airport: newSchedule.arr_airport,
+      airid: 2, // Hardcoded airid
+    };
+
+    try {
       const response = await fetch('http://localhost:8000/schedule', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formattedSchedule),
+        body: JSON.stringify(scheduleToAdd),
       });
       if (response.ok) {
         fetchSchedules(); // Refresh the schedule list
         setNewSchedule({
+          sid: 0,
           flight_no: '',
           arr_time: '',
           arr_airport: '',
           dept_time: '',
           dept_airport: '',
-          airid: 2,
         }); // Reset the form
         setIsFormOpen(false); // Close the form
       } else {
@@ -104,7 +116,7 @@ const SchedulePage: React.FC = () => {
             <div className="form-group">
               <label className="form-label">Flight No.</label>
               <input
-                type="text"
+                type="text" // Change type to "text" for flight number
                 className="form-control"
                 value={newSchedule.flight_no}
                 onChange={(e) => setNewSchedule({ ...newSchedule, flight_no: e.target.value })}
