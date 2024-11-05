@@ -92,7 +92,7 @@ const CrewPage: React.FC = () => {
                 <p><strong>Certifications</strong></p>
                 <ul>
                   {member.certification.split(', ').map((cert, index) => (
-                    <li key={index}>• {cert}</li>
+                    <li key={index}>{cert}</li>
                   ))}
                 </ul>
                 <p>Experience: {member.experience} years</p>
