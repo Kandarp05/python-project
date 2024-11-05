@@ -1,71 +1,94 @@
 /* Elegant Navbar Styling */
 .elegant-navbar {
-    background: #2c3e50; /* Deep navy blue */
-    border-radius: 10px;
-    padding: 0.75rem 1rem;
-    margin: 1rem;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .elegant-navbar .navbar-brand {
-    color: #f8f9fa;
-    font-size: 1.6rem;
-    font-weight: bold;
-    transition: color 0.3s;
-  }
-  
-  .elegant-navbar .navbar-brand:hover {
-    color: #4dc0b5; /* Teal accent for hover */
-    text-decoration: none;
-  }
-  
-  .elegant-navbar .nav-link {
-    color: #d0d3d4; /* Light gray for contrast */
-    font-size: 1.1rem;
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    transition: background 0.3s ease, color 0.3s ease;
-    position: relative;
-  }
-  
-  /* Active Tab Styling */
-  .elegant-navbar .nav-link.active {
-    color: #ffffff; /* Change to white for better contrast */
-    background: rgba(77, 192, 181, 0.15); /* Soft teal background for active */
+  background: #2c3e50; /* Deep navy blue */
+  padding: 0.75rem 1rem;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 0; /* Remove rounding */
+  width: 100%;
+  position: fixed; /* Fix the navbar at the top */
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
 }
-  
-  /* Hover State Styling */
-  .elegant-navbar .nav-link:hover {
-    color: #f8f9fa;
-    background: rgba(77, 192, 181, 0.2); /* Light teal on hover */
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Underline effect for hover and active states */
-  .elegant-navbar .nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background-color: #4dc0b5; /* Teal underline for hover and active */
-    transition: width 0.3s ease;
-  }
-  
-  .elegant-navbar .nav-link:hover::after,
-  .elegant-navbar .nav-link.active::after {
-    width: 100%; /* Expands underline on hover and active */
-  }
-  
-  .elegant-navbar .navbar-nav .nav-item {
-    margin-right: 0.75rem;
-  }
-  
-  /* Add smooth rounding to corners */
-  .elegant-navbar,
-  .elegant-navbar .navbar-nav,
-  .elegant-navbar .navbar-brand {
-    border-radius: 8px;
-  }
-  
+
+/* Container fluid adjustment for navbar content */
+.container-fluid {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+/* Brand styling */
+.elegant-navbar .navbar-brand {
+  color: #f8f9fa;
+  font-size: 1.6rem;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.elegant-navbar .navbar-brand:hover {
+  color: #4dc0b5; /* Teal accent for hover */
+  text-decoration: none;
+}
+
+/* Navbar links styling */
+.elegant-navbar .nav-link {
+  color: #d0d3d4; /* Light gray for contrast */
+  font-size: 1.1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  transition: background 0.3s ease, color 0.3s ease;
+  position: relative;
+}
+
+/* Active Tab Styling */
+.elegant-navbar .nav-link.active {
+  color: #ffffff; /* Change to white for better contrast */
+  background: rgba(77, 192, 181, 0.15); /* Soft teal background for active */
+}
+
+/* Hover State Styling */
+.elegant-navbar .nav-link:hover {
+  color: #f8f9fa;
+  background: rgba(77, 192, 181, 0.2); /* Light teal on hover */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Underline effect for hover and active states */
+.elegant-navbar .nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #4dc0b5; /* Teal underline for hover and active */
+  transition: width 0.3s ease;
+}
+
+.elegant-navbar .nav-link:hover::after,
+.elegant-navbar .nav-link.active::after {
+  width: 100%; /* Expands underline on hover and active */
+}
+
+/* Margin for navigation items */
+.elegant-navbar .navbar-nav .nav-item {
+  margin-right: 0.75rem;
+}
+
+/* Logout button styling */
+.logout-button {
+  background-color: #ff5a5f;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 20px;
+  margin-left: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+  background-color: #ff3b3f;
+}

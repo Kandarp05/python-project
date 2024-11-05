@@ -1,9 +1,15 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import '../styles/Navbar.css'
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import '../styles/Navbar.css';
 
 const Navbar: React.FC = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // Navigate to login page on logout
+    navigate('/login');
+  };
 
   return (
     <nav className="navbar navbar-expand-lg elegant-navbar">
@@ -30,6 +36,8 @@ const Navbar: React.FC = () => {
               <Link className={`nav-link ${location.pathname === "/balance" ? "active" : ""}`} to="/balance">Balance Sheet</Link>
             </li>
           </ul>
+          {/* Distinct Logout Button */}
+          <button className="btn logout-button" onClick={handleLogout}>Logout</button>
         </div>
       </div>
     </nav>
