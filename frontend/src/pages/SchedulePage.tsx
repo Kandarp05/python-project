@@ -4,9 +4,9 @@ import '../styles/SchedulePage.css'; // Ensure to import the custom CSS file
 type FlightSchedule = {
   sid: number;
   flight_no: string;
-  arr_time: string; // This will be formatted to "MM/DD/YY, HH:MM"
+  arr_time: string; // This will be formatted to "DD/MM/YY, HH:MM"
   arr_airport: string;
-  dept_time: string; // This will be formatted to "MM/DD/YY, HH:MM"
+  dept_time: string; // This will be formatted to "DD/MM/YY, HH:MM"
   dept_airport: string;
 };
 
@@ -50,24 +50,23 @@ const SchedulePage: React.FC = () => {
     }
   };
 
-  const formatDateTime = (date: string, time: string) => {
-    const dateObj = new Date(`${date}T${time}`);
-    const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+  // Function to format date and time to "DD/MM/YY, HH:MM"
+  const formatDateTime = (dateTime: string) => {
+    const dateObj = new Date(dateTime);
+    if (isNaN(dateObj.getTime())) return 'Invalid Date'; // Handle invalid date
     const day = String(dateObj.getDate()).padStart(2, '0');
+    const month = String(dateObj.getMonth() + 1).padStart(2, '0');
     const year = String(dateObj.getFullYear()).slice(-2); // Get last 2 digits of year
     const hours = String(dateObj.getHours()).padStart(2, '0');
     const minutes = String(dateObj.getMinutes()).padStart(2, '0');
-    return `${day}/${month}/${year}, ${hours}:${minutes}`; // Adjusted formatting
+    return `${day}/${month}/${year} , ${hours}:${minutes}`;
   };
 
   const handleAddSchedule = async () => {
-    const formattedDeptTime = formatDateTime(newSchedule.dept_time.split('T')[0], newSchedule.dept_time.split('T')[1]);
-    const formattedArrTime = formatDateTime(newSchedule.arr_time.split('T')[0], newSchedule.arr_time.split('T')[1]);
-
     const scheduleToAdd = {
       flight_no: newSchedule.flight_no,
-      dept_time: formattedDeptTime,
-      arr_time: formattedArrTime,
+      dept_time: newSchedule.dept_time,
+      arr_time: newSchedule.arr_time,
       dept_airport: newSchedule.dept_airport,
       arr_airport: newSchedule.arr_airport,
       airid: 2, // Hardcoded airid
@@ -116,7 +115,7 @@ const SchedulePage: React.FC = () => {
             <div className="form-group">
               <label className="form-label">Flight No.</label>
               <input
-                type="text" // Change type to "text" for flight number
+                type="text"
                 className="form-control"
                 value={newSchedule.flight_no}
                 onChange={(e) => setNewSchedule({ ...newSchedule, flight_no: e.target.value })}
@@ -127,16 +126,10 @@ const SchedulePage: React.FC = () => {
               <label className="form-label">Arrival Time</label>
               <div className="time-inputs">
                 <input
-                  type="date"
-                  className="form-control date-input"
-                  value={newSchedule.arr_time.split('T')[0]}
-                  onChange={(e) => setNewSchedule({ ...newSchedule, arr_time: e.target.value + 'T' + newSchedule.arr_time.split('T')[1] })}
-                />
-                <input
-                  type="time"
-                  className="form-control time-input"
-                  value={newSchedule.arr_time.split('T')[1] || '00:00'} // Default time if not set
-                  onChange={(e) => setNewSchedule({ ...newSchedule, arr_time: newSchedule.arr_time.split('T')[0] + 'T' + e.target.value })}
+                  type="datetime-local"
+                  className="form-control"
+                  value={newSchedule.arr_time}
+                  onChange={(e) => setNewSchedule({ ...newSchedule, arr_time: e.target.value })}
                 />
               </div>
             </div>
@@ -154,16 +147,10 @@ const SchedulePage: React.FC = () => {
               <label className="form-label">Departure Time</label>
               <div className="time-inputs">
                 <input
-                  type="date"
-                  className="form-control date-input"
-                  value={newSchedule.dept_time.split('T')[0]}
-                  onChange={(e) => setNewSchedule({ ...newSchedule, dept_time: e.target.value + 'T' + newSchedule.dept_time.split('T')[1] })}
-                />
-                <input
-                  type="time"
-                  className="form-control time-input"
-                  value={newSchedule.dept_time.split('T')[1] || '00:00'} // Default time if not set
-                  onChange={(e) => setNewSchedule({ ...newSchedule, dept_time: newSchedule.dept_time.split('T')[0] + 'T' + e.target.value })}
+                  type="datetime-local"
+                  className="form-control"
+                  value={newSchedule.dept_time}
+                  onChange={(e) => setNewSchedule({ ...newSchedule, dept_time: e.target.value })}
                 />
               </div>
             </div>
@@ -197,9 +184,9 @@ const SchedulePage: React.FC = () => {
           {schedules.map(member => (
             <tr key={member.sid}>
               <td scope='row'>{member.flight_no}</td>
-              <td>{formatDateTime(member.arr_time.split('T')[0], member.arr_time.split('T')[1] || '00:00')}</td>
+              <td>{formatDateTime(member.arr_time)}</td>
               <td>{member.arr_airport}</td>
-              <td>{formatDateTime(member.dept_time.split('T')[0], member.dept_time.split('T')[1] || '00:00')}</td>
+              <td>{formatDateTime(member.dept_time)}</td>
               <td>{member.dept_airport}</td>
               <td>
                 <button className='btn btn-danger' onClick={() => handleRemoveSchedule(member.sid)}>Remove</button>
