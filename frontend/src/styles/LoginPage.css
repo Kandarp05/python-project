@@ -1,0 +1,72 @@
+/* LoginPage.css */
+
+body.login-page {
+    background: linear-gradient(135deg, #1e252f 25%, #2c3e50 100%); /* Subtle gradient background only for the login page */
+    color: #ffffff; /* White text for body */
+}
+
+.login-container {
+    min-height: 100vh; /* Full viewport height */
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Center items vertically and horizontally */
+}
+
+.login-form {
+    background-color: #2b3d4f; /* Darker blue background for the form */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Softer, deeper shadow for depth */
+    width: 100%; /* Full width */
+    max-width: 400px; /* Maximum width for the form */
+    padding: 2rem; /* Add padding */
+    color: #ffffff; /* Light color for form text */
+}
+
+h3 {
+    color: #ffffff; /* White for headings */
+    text-align: center; /* Centered heading */
+    margin-bottom: 1.5rem; /* Space below heading */
+}
+
+.form-group {
+    position: relative; /* For positioning icons if added */
+}
+
+.login-button {
+    background-color: #4dc0b5; /* Teal accent color for the button */
+    border: none; /* No border */
+    color: #ffffff; /* White text */
+    transition: background-color 0.3s, transform 0.2s; /* Smooth transition for hover effect */
+    width: 100%; /* Full width for the button */
+}
+
+.login-button:hover {
+    background-color: #3ba39a; /* Darker teal shade on hover */
+    transform: translateY(-2px); /* Lift effect on hover */
+}
+
+.login-link {
+    color: #4dc0b5; /* Teal accent color for links */
+    text-decoration: none; /* No underline */
+}
+
+.login-link:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+
+/* Footer */
+.footer {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.footer a {
+    color: #4dc0b5; /* Teal color for footer links */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .login-form {
+        padding: 1.5rem; /* Reduce padding for smaller screens */
+    }
+}
