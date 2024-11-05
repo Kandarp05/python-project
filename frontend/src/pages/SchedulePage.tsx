@@ -71,7 +71,7 @@ const SchedulePage: React.FC = () => {
       const year = String(dateObj.getFullYear()).slice(-2); // Get last 2 digits of year
       const hours = String(dateObj.getHours()).padStart(2, '0');
       const minutes = String(dateObj.getMinutes()).padStart(2, '0');
-      return `${day}/${month}/${year}, ${hours}:${minutes}`;
+      return `${day}/${month}/${year} , ${hours}:${minutes}`;
     };
   
     const scheduleToAdd = {
