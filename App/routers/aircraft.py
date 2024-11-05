@@ -1,8 +1,10 @@
+from typing import List
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from App.crud import get_all
 from App.database import get_db
-from App.models import Aircraft
+from App.models import Aircraft, Functional_maintenance, Functional_maintenance_R_Aircraft, Turnaround_maintenance, Turnaround_maintenance_R_Aircraft
+from App.schemas import FunctionalMaintenanceSchema  , TurnaroundMaintenanceSchema
 
 router = APIRouter()
 
@@ -10,7 +12,7 @@ router = APIRouter()
 def read_aircraft(db: Session = Depends(get_db)):
     try:
         aircrafts = get_all(db, Aircraft)
-        return [{"airid": a.airid, "model": a.model,"manu_date" : a.manu_date, "manufacturer": a.manufacturer,"air_range": a.air_range, "capacity" : a.capacity , "reg_no" : a.reg_no} for a in aircrafts]
+        return [{"airid": a.airid, "model": a.model, "manu_date": a.manu_date, "manufacturer": a.manufacturer, "air_range": a.air_range, "capacity": a.capacity, "reg_no": a.reg_no} for a in aircrafts]
     except Exception as e:
         print(f"Error fetching aircraft: {e}")
         raise HTTPException(status_code=500, detail="Internal Server Error")
@@ -99,3 +101,44 @@ def read_aircraft_by_id(aircraft_id: int, db: Session = Depends(get_db)):
         "reg_no": aircraft.reg_no,
         "CID": aircraft.CID
     }
+
+@router.get("/{airid}/functional_maintenance", response_model=None)
+async def get_functional_maintenance_by_aircraft(airid: int, db: Session = Depends(get_db)):
+    maintenance_records = db.query(Functional_maintenance).join(
+        Functional_maintenance_R_Aircraft
+    ).filter(
+        Functional_maintenance_R_Aircraft.airid == airid
+    ).all()
+
+    return [
+        {
+            "fmid": record.fmid,
+            "date": record.date,
+            "description": record.type,
+            "technician": record.technician,
+            "repairs_made": record.repairs_made
+        }
+        for record in maintenance_records
+    ]
+
+@router.get("/{airid}/turnaround_maintenance")
+def get_turnaround_maintenance_by_aircraft(airid: int, db: Session = Depends(get_db)):
+    # Query the Turnaround_maintenance records associated with the specified aircraft
+    turnaround_records = db.query(Turnaround_maintenance).join(
+        Turnaround_maintenance_R_Aircraft
+    ).filter(
+        Turnaround_maintenance_R_Aircraft.airid == airid
+    ).all()
+
+    if not turnaround_records:
+        raise HTTPException(status_code=404, detail="No turnaround maintenance records found for this aircraft.")
+
+    return [
+        {
+            "date": record.date,
+            "technician": record.technician,  # Adjust according to your schema
+            "name": record.name,                # Adjust according to your schema
+            "repairs_made": record.repairs_made # Adjust according to your schema
+        }
+        for record in turnaround_records
+    ]

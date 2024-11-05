@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 type FucntionalMaintenanceLog = {
     fmid: number;
     date: string;
-    type: string;
+    description: string;
     technician: string;
     repairs_made: string;
 };
@@ -15,6 +15,7 @@ type TurnaroundMaintenanceLog = {
     tmid: number;
     date: string;
     technician: string;
+    name: string;
     repairs_made: string;
 }
 
@@ -26,13 +27,14 @@ const MaintenancePage: React.FC = () => {
     tmid: 0,
     date: '',
     technician: '',
+    name: '',
     repairs_made: ''
   });
 
   const [newFunctionalMaintenanceLog, setNewFunctionalMaintenanceLog] = useState<FucntionalMaintenanceLog>({
     fmid: 0,
     date: '',
-    type: '',
+    description: '',
     technician: '',
     repairs_made: '',
   });
@@ -45,8 +47,8 @@ const MaintenancePage: React.FC = () => {
 
   const fetchLogs = async () => {
     try {
-      const turnaroundResponse = await fetch(`http://localhost:8000/aircrafts/${air_id}/turnaround-maintenance`);
-      const functionalResponse = await fetch(`http://localhost:8000/aircrafts/${air_id}/functional-maintenance`);
+      const turnaroundResponse = await fetch(`http://localhost:8000/aircrafts/${air_id}/turnaround_maintenance`);
+      const functionalResponse = await fetch(`http://localhost:8000/aircrafts/${air_id}/functional_maintenance`);
       const turnaroundData = await turnaroundResponse.json();
       const functionalData = await functionalResponse.json();
       setFunctionalLogs(functionalData);
@@ -58,7 +60,7 @@ const MaintenancePage: React.FC = () => {
 
   const handleAddTurnaroundLogs = async () => {
     try {
-      const response = await fetch(`http://localhost:8000/${air_id}/turnaround-maintenance`, {
+      const response = await fetch(`http://localhost:8000/turnaround_maintenance`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newTurnaroundMaintenanceLog),
@@ -68,7 +70,8 @@ const MaintenancePage: React.FC = () => {
         fetchLogs(); // Refresh the list after adding
         setNewTurnaroundMaintenanceLog({ 
             tmid: 0, 
-            technician: '', 
+            technician: '',
+            name: '', 
             repairs_made: '',  
             date: ''
         });
@@ -83,7 +86,7 @@ const MaintenancePage: React.FC = () => {
   const handleRemoveTurnaroundLogs = async (id: number) => {
     console.log(id)
     try {
-      const response = await fetch(`http://localhost:8000/${air_id}/turnaround-maintenance/${id}`, { method: 'DELETE' });
+      const response = await fetch(`http://localhost:8000/turnaround_maintenance/${id}`, { method: 'DELETE' });
       if (response.ok) {
         setTurnaroundLogs(turnaroundLogs.filter(member => member.tmid !== id));
       } else {
@@ -96,7 +99,7 @@ const MaintenancePage: React.FC = () => {
 
   const handleAddFunctionalLogs = async () => {
     try {
-      const response = await fetch(`http://localhost:8000/${air_id}/functional-maintenance`, {
+      const response = await fetch(`http://localhost:8000/functional_maintenance`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newFunctionalMaintenanceLog),
@@ -106,7 +109,7 @@ const MaintenancePage: React.FC = () => {
         fetchLogs(); // Refresh the list after adding
         setNewFunctionalMaintenanceLog({ 
             fmid: 0,
-            type: '',
+            description: '',
             technician: '', 
             repairs_made: '',  
             date: ''
@@ -122,7 +125,7 @@ const MaintenancePage: React.FC = () => {
   const handleRemoveFucntionalLogs = async (id: number) => {
     console.log(id)
     try {
-      const response = await fetch(`http://localhost:8000/${air_id}/functional-maintenance/${id}`, { method: 'DELETE' });
+      const response = await fetch(`http://localhost:8000/functional_maintenance/${id}`, { method: 'DELETE' });
       if (response.ok) {
         setFunctionalLogs(functionalLogs.filter(member => member.fmid !== id));
       } else {
@@ -143,6 +146,7 @@ const MaintenancePage: React.FC = () => {
           <tr>
             <th scope='col'>Date</th>
             <th scope='col'>Technician</th>
+            <th scope='col'>Aircraft Name</th>
             <th scope='col'>Repairs</th>
             <th scope='col'></th>
           </tr>
@@ -152,6 +156,7 @@ const MaintenancePage: React.FC = () => {
             <tr key={member.tmid}>
               <td scope='row'>{member.date}</td>
               <td>{member.technician}</td>
+              <td>{member.name}</td>
               <td>{member.repairs_made}</td>
               <td>
                 <i className="bi bi-trash text-danger" onClick={() => handleRemoveTurnaroundLogs(member.tmid)} style={{ cursor: 'pointer' }}></i>
@@ -161,7 +166,7 @@ const MaintenancePage: React.FC = () => {
           <tr>
             <td>
               <input
-                type="text"
+                type="date"
                 value={newTurnaroundMaintenanceLog.date}
                 onChange={(e) => setNewTurnaroundMaintenanceLog({ ...newTurnaroundMaintenanceLog, date: e.target.value })}
               />
@@ -171,6 +176,13 @@ const MaintenancePage: React.FC = () => {
                 type="text"
                 value={newTurnaroundMaintenanceLog.technician}
                 onChange={(e) => setNewTurnaroundMaintenanceLog({ ...newTurnaroundMaintenanceLog, technician: (e.target.value) })}
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                value={newTurnaroundMaintenanceLog.name}
+                onChange={(e) => setNewTurnaroundMaintenanceLog({ ...newTurnaroundMaintenanceLog, name: (e.target.value) })}
               />
             </td>
             <td>
@@ -204,7 +216,7 @@ const MaintenancePage: React.FC = () => {
           {functionalLogs.map(member => (
             <tr key={member.fmid}>
               <td scope='row'>{member.date}</td>
-              <td>{member.type}</td>
+              <td>{member.description}</td>
               <td>{member.technician}</td>
               <td>{member.repairs_made}</td>
               <td>
@@ -215,7 +227,7 @@ const MaintenancePage: React.FC = () => {
           <tr>
             <td>
               <input
-                type="text"
+                type="date"
                 value={newFunctionalMaintenanceLog.date}
                 onChange={(e) => setNewFunctionalMaintenanceLog({ ...newFunctionalMaintenanceLog, date: e.target.value })}
               />
@@ -223,8 +235,8 @@ const MaintenancePage: React.FC = () => {
             <td>
               <input
                 type="text"
-                value={newFunctionalMaintenanceLog.type}
-                onChange={(e) => setNewFunctionalMaintenanceLog({ ...newFunctionalMaintenanceLog, type: e.target.value })}
+                value={newFunctionalMaintenanceLog.description}
+                onChange={(e) => setNewFunctionalMaintenanceLog({ ...newFunctionalMaintenanceLog, description: e.target.value })}
               />
             </td>
             <td>

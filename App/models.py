@@ -165,6 +165,16 @@ class Turnaround_maintenance_R_Aircraft(Base):
         UniqueConstraint('airid', 'tmid', name='uq_tm_airid_tmid'),
     )
 
+#12
+class Balance_sheet(Base):
+    __tablename__ = 'balance_sheet'
+
+    id = Column(Integer, primary_key=True, index=True)
+    date = Column(Date, nullable=False)  # Use Date type for date
+    revenue = Column(DECIMAL(15, 2), nullable=False)  # Use decimal for revenue
+    profit_loss = Column(DECIMAL(15, 2), nullable=False)  # Use decimal for profit_loss
+    bid = Column(Integer, nullable=False, autoincrement=True)  # Assuming bid is an integer
+
 # Pydantic model for Login
 class LoginRequest(BaseModel):
     username: str

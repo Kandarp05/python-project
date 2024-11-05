@@ -8,6 +8,7 @@ from .routers import (
     crew, 
     functional_maintenance, 
     schedules, 
+    balance_sheet,
     airline_company,
     login as auth_router
 )
@@ -30,9 +31,10 @@ async def root():
 
 # Include routers for different models
 app.include_router(aircraft.router, prefix="/aircrafts", tags=["Aircraft"])
-app.include_router(turnaround_maintenance.router, prefix="/turnaround-maintenance", tags=["Turnaround Maintenance"])
+app.include_router(turnaround_maintenance.router, prefix="/turnaround_maintenance", tags=["Turnaround Maintenance"])
 app.include_router(crew.router,prefix="/crew",tags=["Crew"]) 
-app.include_router(functional_maintenance.router, prefix="/functional-maintenance", tags=["Functional Maintenance"]) 
+app.include_router(functional_maintenance.router, prefix="/functional_maintenance", tags=["Functional Maintenance"]) 
 app.include_router(schedules.router, prefix="/schedule", tags=["Schedules"])
 app.include_router(airline_company.router, prefix="/balance", tags=["Airline Company"])
 app.include_router(auth_router.router, prefix="/login", tags=["Authentication"])
+app.include_router(balance_sheet.router, prefix="/balance_sheet",tags=["Balance Sheet"]) 
