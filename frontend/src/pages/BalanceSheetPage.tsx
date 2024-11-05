@@ -40,13 +40,12 @@ const balancePage: React.FC = () => {
   };
 
   return (
-    
+
     <div>
       <h1>Balance Sheet</h1>
       {error && <p style={{ color: 'red' }}>{error}</p>}
       
-      {/* Display List of Crew Members */}
-      <h2>All Crew Members</h2>
+      
       <table className='table table-bordered'>
         <thead className='table-dark'>
           <tr>

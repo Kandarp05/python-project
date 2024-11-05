@@ -63,7 +63,7 @@ const HomePage: React.FC = () => {
         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
         datasets: [
             {
-                label: 'Monthly Balance (in $1000s)',
+                label: 'Monthly Balance',
                 data: balanceData,
                 fill: false,
                 borderColor: '#4caf50',
