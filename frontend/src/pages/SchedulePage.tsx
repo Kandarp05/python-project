@@ -63,15 +63,26 @@ const SchedulePage: React.FC = () => {
   };
 
   const handleAddSchedule = async () => {
+    // Helper function to format date
+    const formatDateForPost = (dateTime: string) => {
+      const dateObj = new Date(dateTime);
+      const day = String(dateObj.getDate()).padStart(2, '0');
+      const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+      const year = String(dateObj.getFullYear()).slice(-2); // Get last 2 digits of year
+      const hours = String(dateObj.getHours()).padStart(2, '0');
+      const minutes = String(dateObj.getMinutes()).padStart(2, '0');
+      return `${day}/${month}/${year}, ${hours}:${minutes}`;
+    };
+  
     const scheduleToAdd = {
       flight_no: newSchedule.flight_no,
-      dept_time: newSchedule.dept_time,
-      arr_time: newSchedule.arr_time,
+      dept_time: formatDateForPost(newSchedule.dept_time), // Format departure time
+      arr_time: formatDateForPost(newSchedule.arr_time),   // Format arrival time
       dept_airport: newSchedule.dept_airport,
       arr_airport: newSchedule.arr_airport,
       airid: 2, // Hardcoded airid
     };
-
+  
     try {
       const response = await fetch('http://localhost:8000/schedule', {
         method: 'POST',
@@ -98,6 +109,7 @@ const SchedulePage: React.FC = () => {
       setError('Error adding schedule.');
     }
   };
+  
 
   return (
     <div className="table-container">
