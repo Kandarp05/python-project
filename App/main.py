@@ -8,7 +8,8 @@ from .routers import (
     crew, 
     functional_maintenance, 
     schedules, 
-    airline_company
+    airline_company,
+    login as auth_router
 )
 # Create the tables
 Base.metadata.create_all(bind=engine)
@@ -34,3 +35,4 @@ app.include_router(crew.router,prefix="/crew",tags=["Crew"])
 app.include_router(functional_maintenance.router, prefix="/functional-maintenance", tags=["Functional Maintenance"]) 
 app.include_router(schedules.router, prefix="/schedule", tags=["Schedules"])
 app.include_router(airline_company.router, prefix="/balance", tags=["Airline Company"])
+app.include_router(auth_router.router, prefix="/login", tags=["Authentication"])

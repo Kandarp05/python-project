@@ -1,6 +1,7 @@
 from sqlalchemy import UniqueConstraint,PrimaryKeyConstraint,Column, Integer, String, Date, Text, ForeignKey, DateTime, DECIMAL, ForeignKeyConstraint
 from sqlalchemy.orm import relationship
 from .database import Base
+from pydantic import BaseModel
 
 # 1
 class Aircraft(Base):
@@ -163,3 +164,12 @@ class Turnaround_maintenance_R_Aircraft(Base):
     __table_args__ = (
         UniqueConstraint('airid', 'tmid', name='uq_tm_airid_tmid'),
     )
+
+# Pydantic model for Login
+class LoginRequest(BaseModel):
+    username: str
+    password: str
+
+# Pydantic model for Login response
+class LoginResponse(BaseModel):
+    message: str
