@@ -75,12 +75,6 @@ const LoginPage: React.FC = () => {
             Log in
           </Button>
         </Form>
-        <div className="mt-3 text-center">
-          <a href="/forgot-password" className="login-link">Forgot password?</a>
-        </div>
-        <div className="mt-3 text-center footer">
-          Don’t have an account? <a href="/signup" className="login-link">Create account</a>
-        </div>
       </div>
     </Container>
   );
