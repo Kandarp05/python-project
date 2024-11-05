@@ -40,6 +40,7 @@ const balancePage: React.FC = () => {
   };
 
   return (
+    
     <div>
       <h1>Balance Sheet</h1>
       {error && <p style={{ color: 'red' }}>{error}</p>}
