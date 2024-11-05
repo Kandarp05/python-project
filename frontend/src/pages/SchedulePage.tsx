@@ -57,7 +57,7 @@ const SchedulePage: React.FC = () => {
     const year = String(dateObj.getFullYear()).slice(-2); // Get last 2 digits of year
     const hours = String(dateObj.getHours()).padStart(2, '0');
     const minutes = String(dateObj.getMinutes()).padStart(2, '0');
-    return `${day}/${month}/${year} , ${hours}:${minutes}`; // Removed space before the comma
+    return `${day}/${month}/${year}, ${hours}:${minutes}`; // Adjusted formatting
   };
 
   const handleAddSchedule = async () => {
@@ -135,7 +135,7 @@ const SchedulePage: React.FC = () => {
                 <input
                   type="time"
                   className="form-control time-input"
-                  value={newSchedule.arr_time.split('T')[1]}
+                  value={newSchedule.arr_time.split('T')[1] || '00:00'} // Default time if not set
                   onChange={(e) => setNewSchedule({ ...newSchedule, arr_time: newSchedule.arr_time.split('T')[0] + 'T' + e.target.value })}
                 />
               </div>
@@ -162,7 +162,7 @@ const SchedulePage: React.FC = () => {
                 <input
                   type="time"
                   className="form-control time-input"
-                  value={newSchedule.dept_time.split('T')[1]}
+                  value={newSchedule.dept_time.split('T')[1] || '00:00'} // Default time if not set
                   onChange={(e) => setNewSchedule({ ...newSchedule, dept_time: newSchedule.dept_time.split('T')[0] + 'T' + e.target.value })}
                 />
               </div>
@@ -197,15 +197,20 @@ const SchedulePage: React.FC = () => {
           {schedules.map(member => (
             <tr key={member.sid}>
               <td scope='row'>{member.flight_no}</td>
-              <td>{formatDateTime(member.arr_time.split('T')[0], member.arr_time.split('T')[1])}</td>
+              <td>{formatDateTime(member.arr_time.split('T')[0], member.arr_time.split('T')[1] || '00:00')}</td>
               <td>{member.arr_airport}</td>
-              <td>{formatDateTime(member.dept_time.split('T')[0], member.dept_time.split('T')[1])}</td>
+              <td>{formatDateTime(member.dept_time.split('T')[0], member.dept_time.split('T')[1] || '00:00')}</td>
               <td>{member.dept_airport}</td>
               <td>
                 <button className='btn btn-danger' onClick={() => handleRemoveSchedule(member.sid)}>Remove</button>
               </td>
             </tr>
           ))}
+          {schedules.length === 0 && (
+            <tr>
+              <td colSpan={6} className='text-center'>No flight schedules available.</td>
+            </tr>
+          )}
         </tbody>
       </table>
     </div>
